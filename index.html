@@ -1,130 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Hifz Post Generator - Full Version</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikhtibar Post Generator</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* Custom Uploaded Fonts */
         @font-face {
-        font-family: 'AL-Kanz';
-        src: url('Al-Kanz for Windows.ttf') format('truetype');  }
+            font-family: 'Kanz al Marjaan';
+            src: url('Kanz-al-Marjaan.ttf') format('truetype');
+        }
         @font-face {
-        font-family: 'Kanz-al-Marjaan';
-        src: url('Kanz-al-Marjaan.ttf') format('truetype');  }
-        body { font-family: 'Kanz-al-Marjaan', serif; background: #1a1a2e; color: #ecf0f1; margin: 0; padding: 20px; display: flex; flex-direction: row; gap: 30px; justify-content: center; }
-        .editor-panel { background: #ffffff; color: #2c3e50; padding: 25px; border-radius: 15px; width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-top: 8px solid #d4af37; height: 95vh; overflow-y: auto; }
-        h2 { font-family: 'Kan-al-Marjaan', serif; text-align: center; color: #1a5276; margin-top: 0; }
-        .field { margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
-        label { display: block; font-size: 0.8em; font-weight: bold; margin-bottom: 4px; color: #34495e; }
-        input[type="text"], select, input[type="file"], input[type="range"], input[type="color"] { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #bdc3c7; box-sizing: border-box; font-family: 'Amiri'; }
-        input[type="color"] { height: 40px; cursor: pointer; padding: 2px; }
-        canvas { border: 10px solid #fff; box-shadow: 0 15px 45px rgba(0,0,0,0.4); max-width: 550px; height: auto; background: #2c3e50; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-family: 'Aref Ruqaa'; font-weight: bold; background: #27ae60; color: white; font-size: 1.1em; margin-top: 10px; }
+            font-family: 'Al-Kanz for Windows';
+            src: url('Al-Kanz for Windows.ttf') format('truetype');
+        }
+
+        :root { --primary: #1a5276; --gold: #d4af37; --bg: #1a1a2e; }
+        body { font-family: 'Amiri', serif; background: var(--bg); color: #ecf0f1; margin: 0; padding: 20px; display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
+        
+        .editor-panel { background: #ffffff; color: #2c3e50; padding: 25px; border-radius: 15px; width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-top: 8px solid var(--gold); height: 95vh; overflow-y: auto; text-align: left; }
+        h2 { font-family: 'Aref Ruqaa', serif; text-align: left; color: var(--primary); margin-top: 0; }
+        .field { margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+        label { display: block; font-size: 0.85em; font-weight: bold; margin-bottom: 5px; color: #34495e; text-align: left; }
+        
+        input[type="text"], select, input[type="file"], input[type="range"], input[type="color"] { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #bdc3c7; box-sizing: border-box; font-family: 'Amiri'; font-size: 1em; }
+        input[type="color"] { height: 45px; cursor: pointer; padding: 2px; }
+        .preview-container { text-align: center; position: sticky; top: 20px; }
+        canvas { border: 10px solid #fff; box-shadow: 0 15px 45px rgba(0,0,0,0.4); max-width: 500px; height: auto; background: #fff; border-radius: 4px; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-family: 'Aref Ruqaa'; font-weight: bold; background: #27ae60; color: white; font-size: 1.2em; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: #219150; }
+        @media (max-width: 900px) { body { flex-direction: column; align-items: center; } .editor-panel { width: 90%; height: auto; } }
     </style>
 </head>
 <body>
 
     <div class="editor-panel">
-        <h2>Post Editor</h2>
+        <h2>Ikhtebaar Appreciation Post</h2>
         
         <div class="field">
-            <label>1. Select Marhala</label>
+            <label>Select Marhala</label>
             <select id="templateSelect" onchange="updateBackground()">
-                <option value="">-- Select Marhalah --</option>
-                <option value="https://lh3.googleusercontent.com/u/0/d/1GKTveSxVxRpu1eEWxFZmNj4uBc5Vd35N">Marhala 1</option>
-                <option value="https://lh3.googleusercontent.com/d/119wOoByVcSf5t7OTz9cKasOsf8wKCGw7">Marhala 2</option>
-                <option value="https://lh3.googleusercontent.com/d/1S1MWEdOAWY5zGUxFwJudxPIzJej7g-YH">Marhala 3</option>
-                <option value="https://lh3.googleusercontent.com/d/19SVxCq61K-h7IL-1zABNaJWi1TLkvufb">Marhala 4</option>
-                <option value="https://lh3.googleusercontent.com/d/1bv9EYm9aYMo_F3fPT4atEQFXdd8nAtE5">Marhala 5</option>
-                <option value="https://lh3.googleusercontent.com/d/10szobf_63M0WK2iHRgYn77TN08UBQ6Rl">Marhala 6</option>
-                <option value="https://lh3.googleusercontent.com/d/1x3V47k1Hq_dzsToYQxyWRb8lPjD_X4TD">Marhala 7</option>
-                <option value="https://lh3.googleusercontent.com/d/1cDodMK52jBwrZErQHRE2d9_imyGNR--L">Marhala 8</option>
+                <option value="">--Select Marhala--</option>
+                <option value="M1.jpg">Marhala 1</option>
+                <option value="M2.jpg">Marhala 2</option>
+                <option value="M3.jpg">Marhala 3</option>
+                <option value="M4.jpg">Marhala 4</option>
+                <option value="M5.jpg">Marhala 5</option>
+                <option value="M6.jpg">Marhala 6</option>
+                <option value="M7.jpg">Marhala 7</option>
+                <option value="M8.jpg">Marhala 8</option>
+                <option value="IN.jpg">Ikhtebaar Nihaee</option>
             </select>
         </div>
 
         <div class="field">
-            <label>2. Institute Location</label>
+            <label>Mohallah Institute / Imani Darsgah</label>
             <select id="instName">
-                <option value="">-- Select Location --</option>
-           <option value="قسم التحفيظ - جمالي محلة">جمالي محلة</option>
-<option value="قسم التحفيظ - المحلة البرهانية">المحلة البرهانية</option>
-<option value="قسم التحفيظ - برهاني باغ محلة">برهاني باغ محلة</option>
-<option value="قسم التحفيظ - المحلة الفخرية">المحلة الفخرية</option>
-<option value="قسم التحفيظ - المحلة المحمدية">المحلة المحمدية</option>
-<option value="قسم التحفيظ - عزي محلة">عزي محلة</option>
-<option value="قسم التحفيظ - طاهري محلة">طاهري محلة</option>
-<option value="قسم التحفيظ - محمدي محلة">محمدي محلة</option>
-<option value="قسم التحفيظ - صالح محلة">صالح محلة</option>
-<option value="قسم التحفيظ - اْدم محلة">اْدم محلة</option>
-<option value="قسم التحفيظ - عيسى محلة">عيسى محلة</option>
-<option value="قسم التحفيظ - سيفي محلة">سيفي محلة</option>
-<option value="قسم التحفيظ - ابراهيم محلة">ابراهيم محلة</option>
-<option value="قسم التحفيظ - يوسفي محلة">يوسفي محلة</option>
-<option value="قسم التحفيظ - برهاني محلة">برهاني محلة</option>
-<option value="قسم التحفيظ - قطبي محلة">قطبي محلة</option>
-<option value="قسم التحفيظ - حسني محلة">حسني محلة</option>
-<option value="قسم التحفيظ - حسيني محلة">حسيني محلة</option>
-<option value="قسم التحفيظ - برهاني نككر">برهاني نككر</option>
-<option value="قسم التحفيظ - بدري محلة">بدري محلة</option>
-<option value="قسم التحفيظ - ملتان">ملتان</option>
-<option value="قسم التحفيظ - لاهور">لاهور</option>
-<option value="قسم التحفيظ - ايبطاباد">ايبطاباد</option>
-<option value="قسم التحفيظ - راولثثندي">Rawalpindi</option>
-<option value="روضة العلم البرهانية - راولثثندٌي">Rawdatul Ilm il Burhaniyah-Rawalpindi</option>
-<option value="قسم التحفيظ - كوئطه">Quetta</option>
-<option value="المدرسة السيفية البرهانية - شبيراباد">MSB-Shabbirabad</option>
-<option value="المدرسة السيفية البرهانية - المحلة البرهانية">MSB-Hyderi</option>
-<option value="بدري هائي اسكول">BHS</option>
-<option value="حكيمي اسكول">حكيمي اسكول</option>
-<option value="حسامية اسكول">حسامية اسكول</option>
-<option value="سيفية بوئيز هائي اسكول">SBHS</option>
-<option value="سيفية ككرلز اسكول">SGS</option>
-<option value="روضة القراْن الكريم">RQK</option>
-
+                <option value="">-- Select --</option>
+                <option value="قسم التحفيظ - جمالي محلة">جمالي محلة</option>
+                <option value="قسم التحفيظ - المحلة البرهانية">المحلة البرهانية</option>
+                <option value="قسم التحفيظ - برهاني باغ محلة">برهاني باغ محلة</option>
+                <option value="قسم التحفيظ - المحلة الفخرية">المحلة الفخرية</option>
+                <option value="قسم التحفيظ - المحلة المحمدية">المحلة المحمدية</option>
+                <option value="قسم التحفيظ - عزي محلة">عزي محلة</option>
+                <option value="قسم التحفيظ - طاهري محلة">طاهري محلة</option>
+                <option value="قسم التحفيظ - محمدي محلة">محمدي محلة</option>
+                <option value="قسم التحفيظ - صالح محلة">صالح محلة</option>
+                <option value="قسم التحفيظ - اْدم محلة">اْدم محلة</option>
+                <option value="قسم التحفيظ - عيسى محلة">عيسى محلة</option>
+                <option value="قسم التحفيظ - سيفي محلة">سيفي محلة</option>
+                <option value="قسم التحفيظ - ابراهيم محلة">ابراهيم محلة</option>
+                <option value="قسم التحفيظ - يوسفي محلة">يوسفي محلة</option>
+                <option value="قسم التحفيظ - برهاني محلة">برهاني محلة</option>
+                <option value="قسم التحفيظ - قطبي محلة">قطبي محلة</option>
+                <option value="قسم التحفيظ - حسني محلة">حسني محلة</option>
+                <option value="قسم التحفيظ - حسيني محلة">حسيني محلة</option>
+                <option value="قسم التحفيظ - برهاني نككر">برهاني نككر</option>
+                <option value="قسم التحفيظ - بدري محلة">بدري محلة</option>
+                <option value="قسم التحفيظ - ملتان">ملتان</option>
+                <option value="قسم التحفيظ - لاهور">لاهور</option>
+                <option value="قسم التحفيظ - ايبطاباد">ايبطاباد</option>
+                <option value="قسم التحفيظ - راولثثندي">راولثثندي</option>
+                <option value="قسم التحفيظ - كوئطه">كوئطه</option>
+                <option value="المدرسة السيفية البرهانية - شبيراباد">المدرسة السيفية البرهانية - شبيراباد</option>
+                <option value="المدرسة البرهانية حيدري وبدري هائي اسكول">المدرسة البرهانية حيدري وبدري هائي اسكول</option>
+                <option value="حكيمي اسكول">حكيمي اسكول</option>
+                <option value="حسامية اسكول">حسامية اسكول</option>
+                <option value="سيفية بوئيز هائي اسكول">سيفية بوئيز هائي اسكول</option>
+                <option value="سيفية ككرلز اسكول">سيفية ككرلز اسكول</option>
+                <option value="روضة القراْن الكريم">روضة القراْن الكريم</option>
             </select>
+
+            <label style="font-size:0.75em; margin-top:8px;">Institute Font Size:</label>
+            <input type="range" id="instFontSize" min="10" max="100" value="42" step="1">
         </div>
 
         <div class="field">
-            <label>3. Typography (Names Only)</label>
+            <label>Typography (Student Details)</label>
             <select id="fontSelect">
                 <option value="Amiri">Amiri (Default)</option>
                 <option value="Aref Ruqaa">Aref Ruqaa</option>
                 <option value="Scheherazade New">Scheherazade New</option>
                 <option value="Al-Kanz for Windows">Al-Kanz</option>
-                <option value="Kanz-al-Marjaan">Kanz al Marjaan</option>
+                <option value="Kanz al Marjaan">Kanz al Marjaan</option>
             </select>
-            <label style="font-size: 0.7em; margin-top:5px;">Color for Student Names</label>
-            <input type="color" id="nameColor" value="#1a5276">
+            <label style="font-size: 0.75em; margin-top:8px;">ٍSelect Color</label>
+            <input type="color" id="nameColor" value="#ffffff">
         </div>
 
         <div class="field">
-            <label>4. Student Details</label>
-            <input type="text" id="stdFirstName" placeholder="الاسم">
-            <input type="text" id="stdFatherName" placeholder="اسم الوالد / زوج">
+            <label>Student Details</label>
+            <input type="text" id="stdFirstName" placeholder="الاسم (First Name)">
+            <input type="text" id="stdFatherName" placeholder="اسم الوالد / زوج (Father/Husband)">
             <input type="text" id="stdSurname" placeholder="اللقب (Surname)">
-            <input type="text" id="stdAge" placeholder="Age">
+            <input type="text" id="stdAge" placeholder="العمر (Age)">
         </div>
 
         <div class="field">
-            <label>5. Day & Dates</label>
+            <label>Day & Dates</label>
             <select id="dayArabic">
                 <option value="">-- Day --</option>
-                <option value="يوم السبت">يوم السبت</option>
-                <option value="يوم الأحد">يوم الأحد</option>
                 <option value="يوم الإثنين">يوم الإثنين</option>
                 <option value="يوم الثلاثاء">يوم الثلاثاء</option>
                 <option value="يوم الأربعاء">يوم الأربعاء</option>
                 <option value="يوم الخميس">يوم الخميس</option>
                 <option value="يوم الجمعة">يوم الجمعة</option>
+                <option value="يوم السبت">يوم السبت</option>
+                <option value="يوم الأحد">يوم الأحد</option>
             </select>
-            <input type="text" id="dateHijri" placeholder="التاريخ">
+            <input type="text" id="dateHijri" placeholder="Hijri Date">
             <input type="text" id="dateGreg" placeholder="Gregorian Date">
         </div>
 
         <div class="field">
-            <label>6. Photo Controls</label>
+            <label>Photo Controls</label>
             <input type="file" id="studentUpload" accept="image/*">
+            <label style="font-size:0.7em; margin-top:5px;">Zoom</label>
             <input type="range" id="photoZoom" min="0.5" max="3.0" step="0.1" value="1">
+            <label style="font-size:0.7em; margin-top:5px;">Vertical Position</label>
             <input type="range" id="photoYOffset" min="-500" max="500" value="0">
         </div>
 
@@ -132,7 +148,8 @@
     </div>
 
     <div class="preview-container">
-        <canvas id="canvas" width="1224" height="1776"></canvas>
+        <!-- Canvas dimensions matching template aspect ratio -->
+        <canvas id="canvas" width="1224" height="1550"></canvas>
     </div>
 
     <script>
@@ -141,25 +158,35 @@
         let bgImage = new Image();
         let studentImage = null;
 
+        // Coordinates matched to your template image
         const POS = {
-            inst: { x: 612, y: 380, maxWidth: 850 },
-            photo: { x: 900, y: 740, radius: 195 },
-            nameFirst: { x: 630, y: 650, maxWidth: 450 },
-            nameFull: { x: 630, y: 750, maxWidth: 450 },
-            age: { x: 630, y: 850 },
-            dateX: 890,
-            dateH_Y: 1310,
-            dateG_Y: 1380
+            // Top Right area next to the round stamp
+            inst: { x: 620, y: 450, maxWidth: 600 },
+            
+            // Central Circular Frame
+            photo: { x: 605, y: 807, radius: 168 },
+            
+            // Brown Bar Area (Shifted X to 470 for right alignment inside the bar)
+            nameFirst: { x: 1180, y: 720, maxWidth: 400 },
+            nameFull: { x: 1180, y: 810, maxWidth: 380 },
+            age: { x: 1180, y: 910 },
+            
+            // Bottom Area (Positioned next to "تاريخ الاختبار:")
+            dateX: 880,
+            dateH_Y: 1290,
+            dateG_Y: 1350
         };
 
-        const staticFont = "Kanz-al-Marjaan"; 
+        const staticFont = "Kanz al Marjaan";
 
-        const controls = ['instName', 'stdFirstName', 'nameColor', 'stdFatherName', 'stdSurname', 'stdAge', 'dateHijri', 'dateGreg', 'photoZoom', 'photoYOffset', 'fontSelect', 'dayArabic'];
+        const controls = ['instName', 'instFontSize', 'fontSelect', 'stdFirstName', 'nameColor', 'stdFatherName', 'stdSurname', 'stdAge', 'dateHijri', 'dateGreg', 'photoZoom', 'photoYOffset', 'dayArabic'];
         controls.forEach(id => document.getElementById(id).addEventListener('input', draw));
 
+        // Standard single-line text helper
         function drawText(text, x, y, maxWidth, baseSize, font, isBold, color, align='right') {
             if (!text) return;
             let size = baseSize;
+            ctx.save();
             ctx.textAlign = align;
             ctx.fillStyle = color;
             ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
@@ -168,74 +195,159 @@
                 ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
             }
             ctx.fillText(text, x, y);
+            ctx.restore();
+        }
+
+        // Wrapped multi-line text helper with shadow support
+        function drawWrappedText(text, x, y, maxWidth, baseSize, font, isBold, color, align='center', hasShadow=false) {
+            if (!text) return;
+
+            ctx.save();
+            ctx.textAlign = align;
+            ctx.fillStyle = color;
+            ctx.font = `${isBold ? 'bold' : ''} ${baseSize}px "${font}"`;
+
+            // Apply Grey Drop Shadow if enabled
+            if (hasShadow) {
+                ctx.shadowColor = 'rgba(128, 128, 128, 0.7)';
+                ctx.shadowOffsetX = 3;
+                ctx.shadowOffsetY = 3;
+                ctx.shadowBlur = 5;
+            }
+
+            const words = text.split(' ');
+            let currentLine = '';
+            const lines = [];
+            const lineHeight = baseSize * 1.2;
+
+            for (let i = 0; i < words.length; i++) {
+                let testLine = currentLine + (currentLine ? ' ' : '') + words[i];
+                let testWidth = ctx.measureText(testLine).width;
+
+                if (testWidth > maxWidth && i > 0) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            lines.push(currentLine);
+
+            lines.forEach((line, index) => {
+                let lineY = y + (index * lineHeight);
+                ctx.fillText(line, x, lineY);
+            });
+
+            ctx.restore();
         }
 
         function draw() {
             const studentFont = document.getElementById('fontSelect').value;
             const chosenColor = document.getElementById('nameColor').value;
+            const currentInstFontSize = parseInt(document.getElementById('instFontSize').value);
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            if (bgImage.complete && bgImage.src) ctx.drawImage(bgImage, 0, 0, 1224, 1776);
+            // 1. Draw Template Background
+            if (bgImage.complete && bgImage.src) {
+                ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            }
 
-            // 1. Institute (Static Font - Glow)
-            ctx.save();
-            ctx.direction = 'rtl';
-            ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 15;
-            drawText(document.getElementById('instName').value, POS.inst.x, POS.inst.y, POS.inst.maxWidth, 75, staticFont, true, '#e8f6ff', 'center');
-            ctx.restore();
-
-            // 2. Photo
+            // 2. Student Photo (Inside Circular Mask)
             if (studentImage) {
                 ctx.save();
-                ctx.beginPath(); ctx.arc(POS.photo.x, POS.photo.y, POS.photo.radius, 0, Math.PI * 2); ctx.clip();
+                ctx.beginPath(); 
+                ctx.arc(POS.photo.x, POS.photo.y, POS.photo.radius, 0, Math.PI * 2); 
+                ctx.clip();
+                
                 const zoom = parseFloat(document.getElementById('photoZoom').value);
                 const yOff = parseFloat(document.getElementById('photoYOffset').value);
                 const ratio = Math.max((POS.photo.radius*2) / studentImage.width, (POS.photo.radius*2) / studentImage.height) * zoom;
-                ctx.drawImage(studentImage, POS.photo.x - (studentImage.width*ratio/2), POS.photo.y - (studentImage.height*ratio/2) + yOff, studentImage.width*ratio, studentImage.height*ratio);
+                
+                ctx.drawImage(
+                    studentImage, 
+                    POS.photo.x - (studentImage.width * ratio / 2), 
+                    POS.photo.y - (studentImage.height * ratio / 2) + yOff, 
+                    studentImage.width * ratio, 
+                    studentImage.height * ratio
+                );
                 ctx.restore();
             }
 
-            // 3. Names (STUDENT SELECTED FONT & COLOR)
+            // 3. Institute / Mohallah Name
             ctx.save();
             ctx.direction = 'rtl';
-            ctx.shadowColor = 'rgba(0,0,0,0.3)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 3;
-            drawText(document.getElementById('stdFirstName').value, POS.nameFirst.x, POS.nameFirst.y, POS.nameFirst.maxWidth, 75, studentFont, true, chosenColor);
-            const fullNameLine = document.getElementById('stdFatherName').value + " " + document.getElementById('stdSurname').value;
-            drawText(fullNameLine, POS.nameFull.x, POS.nameFull.y, POS.nameFull.maxWidth, 50, studentFont, false, chosenColor);
+            drawWrappedText(
+                document.getElementById('instName').value, 
+                POS.inst.x, 
+                POS.inst.y, 
+                POS.inst.maxWidth, 
+                currentInstFontSize, 
+                staticFont, 
+                true, 
+                '#a50000', 
+                'center', 
+                true 
+            );
+            ctx.restore();
 
-            // 4. Age (Static Font)
+            // 4. Student Names & Age (Aligned Right inside Brown Bar)
+            ctx.save();
+            ctx.direction = 'rtl';
+            
+            // First Name
+            drawText(document.getElementById('stdFirstName').value, POS.nameFirst.x, POS.nameFirst.y, POS.nameFirst.maxWidth, 70, studentFont, true, chosenColor, 'right');
+            
+            // Full Name (Father + Surname)
+            const fullNameLine = (document.getElementById('stdFatherName').value + " " + document.getElementById('stdSurname').value).trim();
+            drawText(fullNameLine, POS.nameFull.x, POS.nameFull.y, POS.nameFull.maxWidth, 60, studentFont, false, chosenColor, 'right');
+
+            // Age
             const ageText = document.getElementById('stdAge').value;
-            if(ageText) {
-                ctx.font = `42px "${staticFont}"`;
-                ctx.fillStyle = '#1a5276'; 
-                ctx.fillText(ageText + " ورس", POS.age.x, POS.age.y);
+            if (ageText) {
+                drawText(ageText + " ورس", POS.age.x, POS.age.y, 300, 55, studentFont, false, chosenColor, 'right');
             }
             ctx.restore();
 
-            // 5. Dates (Static Font)
-            ctx.fillStyle = '#e8f6ff';
+            // 5. Test Date
+            ctx.save();
             ctx.direction = 'rtl';
             const hijriLine = document.getElementById('dateHijri').value + (document.getElementById('dayArabic').value ? "، " + document.getElementById('dayArabic').value : "");
-            drawText(hijriLine, POS.dateX, POS.dateH_Y, 600, 55, staticFont, false, '#e8f6ff', 'right');
+            drawText(hijriLine, POS.dateX, POS.dateH_Y, 800, 65, "Kanz-al-Marjaan", true, '#1b5e20', 'right');
 
             ctx.direction = 'ltr';
-            drawText(document.getElementById('dateGreg').value, POS.dateX, POS.dateG_Y, 600, 52, staticFont, false, '#e8f6ff', 'right');
+            drawText(document.getElementById('dateGreg').value, POS.dateX, POS.dateG_Y, 800, 45, "Amiri", false, '#1b5e20', 'right');
+            ctx.restore();
         }
 
         function updateBackground() {
             const url = document.getElementById('templateSelect').value;
-            if(url) { bgImage.crossOrigin = "anonymous"; bgImage.src = url; bgImage.onload = draw; }
+            if(url) { 
+                bgImage.crossOrigin = "anonymous"; 
+                bgImage.src = url; 
+                bgImage.onload = draw; 
+            }
         }
+
+        // Initialize default background image on load
+        window.onload = () => {
+            bgImage.src = document.getElementById('templateSelect').value || "SBHS_Ikhtebar_Post.png";
+            bgImage.onload = draw;
+        };
 
         document.getElementById('studentUpload').onchange = (e) => {
             const reader = new FileReader();
-            reader.onload = (f) => { studentImage = new Image(); studentImage.onload = draw; studentImage.src = f.target.result; };
+            reader.onload = (f) => { 
+                studentImage = new Image(); 
+                studentImage.onload = draw; 
+                studentImage.src = f.target.result; 
+            };
             reader.readAsDataURL(e.target.files[0]);
         };
 
         function download() {
             const link = document.createElement('a');
-            link.download = 'Hifz_Post.png';
+            link.download = 'Ikhtibar_Post.png';
             link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
         }
