@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ikhtibar Post Generator</title>
+    <title>Ikhtebar Appreciation Post Generator</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     
@@ -41,44 +41,25 @@
         <h2>Ikhtebaar Appreciation Post</h2>
         
         <div class="field">
-            <label>Select Marhala</label>
-            <select id="templateSelect" onchange="">
-                <option value="">--Select Marhala--</option>
-                <option value="Marhala Names_1.png">Marhala 1</option>
-                <option value="Marhala Names_2.png">Marhala 2</option>
-                <option value="Marhala Names_3.png">Marhala 3</option>
-                <option value="Marhala Names_4.png">Marhala 4</option>
-                <option value="Marhala Names_5.png">Marhala 5</option>
-                <option value="Marhala Names_6.png">Marhala 6</option>
-                <option value="Marhala Names_7.png">Marhala 7</option>
-                <option value="Marhala Names_8.png">Marhala 8</option>
-                <option value="IN.jpg">Ikhtebaar Nihaee</option>
+            <label>1. Select Marhala Name (Ribbon)</label>
+            <select id="marhalaName">
+                <option value="">-- Select Marhala --</option>
+                <option value="المرحلة الاولى">المرحلة الاولى</option>
+                <option value="المرحلة الثانية">المرحلة الثانية</option>
+                <option value="المرحلة الثالثة">المرحلة الثالثة</option>
+                <option value="المرحلة الرابعة">المرحلة الرابعة</option>
+                <option value="المرحلة الخامسة">المرحلة الخامسة</option>
+                <option value="المرحلة السادسة">المرحلة السادسة</option>
+                <option value="المرحلة السابعة">المرحلة السابعة</option>
+                <option value="المرحلة الثامنة">المرحلة الثامنة</option>
+                <option value="اختبار نهائي">اختبار نهائي</option>
             </select>
+            <label style="font-size: 0.75em; margin-top:8px;">Marhala Ribbon Text Color</label>
+            <input type="color" id="marhalaColor" value="#b02a2a">
         </div>
 
         <div class="field">
-            <label>Darajah</label>
-            <select id="instName">
-                <option value="">-- Select --</option>
-                <option value="الدرجة الاولة">1</option>
-                <option value="الدرجة الثانية">2</option>
-                <option value="الدرجة الثالثة">3</option>
-                <option value="الدرجة الرابعة">4</option>
-                <option value="الدرجة الخامسة">5</option>
-                <option value="الدرجة السادسة">6</option>
-                <option value="الدرجة السابعة">7</option>
-                <option value="الدرجة الثامنة">8</option>
-                <option value="الدرجة التاسعة">9</option>
-                <option value="الدرجة العاشرة">10</option>
-         
-            </select>
-
-            <label style="font-size:0.75em; margin-top:8px;">Institute Font Size:</label>
-            <input type="range" id="instFontSize" min="10" max="100" value="42" step="1">
-        </div>
-
-        <div class="field">
-            <label>Typography (Student Details)</label>
+            <label>2. Typography & Color (Student Info)</label>
             <select id="fontSelect">
                 <option value="Amiri">Amiri (Default)</option>
                 <option value="Aref Ruqaa">Aref Ruqaa</option>
@@ -86,34 +67,25 @@
                 <option value="Al-Kanz for Windows">Al-Kanz</option>
                 <option value="Kanz al Marjaan">Kanz al Marjaan</option>
             </select>
-            <label style="font-size: 0.75em; margin-top:8px;">ٍSelect Color</label>
-            <input type="color" id="nameColor" value="#ffffff">
+            <label style="font-size: 0.75em; margin-top:8px;">Student Info Text Color</label>
+            <input type="color" id="nameColor" value="#8b1e1e">
         </div>
 
         <div class="field">
-            <label>Student Details</label>
-            <input type="text" id="stdFirstName" placeholder="Full Name of the Farzand">
-            <input type="text" id="stdAge" placeholder="Age">
+            <label>3. Student Details</label>
+            <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل (e.g. سيف الدين بهائي...)">
+            <input type="text" id="darajahName" placeholder="الدرجة (e.g. الدرجة السادسة)">
+            <input type="text" id="schoolName" placeholder="اسم المدرسة (e.g. سيفية بوئز هائي اسكول)">
         </div>
 
         <div class="field">
-            <label>Day & Dates</label>
-            <select id="dayArabic">
-                <option value="">-- Day --</option>
-                <option value="يوم الإثنين">يوم الإثنين</option>
-                <option value="يوم الثلاثاء">يوم الثلاثاء</option>
-                <option value="يوم الأربعاء">يوم الأربعاء</option>
-                <option value="يوم الخميس">يوم الخميس</option>
-                <option value="يوم الجمعة">يوم الجمعة</option>
-                <option value="يوم السبت">يوم السبت</option>
-                <option value="يوم الأحد">يوم الأحد</option>
-            </select>
-            <input type="text" id="dateHijri" placeholder="Hijri Date">
-            <input type="text" id="dateGreg" placeholder="Gregorian Date">
+            <label>4. Marhala Counts (Bottom)</label>
+            <input type="text" id="marhalaCount" placeholder="Marhala Count (e.g. 1)">
+            <input type="text" id="totalMarhalaCount" placeholder="Total Count (e.g. 8)">
         </div>
 
         <div class="field">
-            <label>Photo Controls</label>
+            <label>5. Photo Controls</label>
             <input type="file" id="studentUpload" accept="image/*">
             <label style="font-size:0.7em; margin-top:5px;">Zoom</label>
             <input type="range" id="photoZoom" min="0.5" max="3.0" step="0.1" value="1">
@@ -125,8 +97,8 @@
     </div>
 
     <div class="preview-container">
-        <!-- Canvas dimensions matching template aspect ratio -->
-        <canvas id="canvas" width="1224" height="1550"></canvas>
+        <!-- Canvas dimensions matching template base size -->
+        <canvas id="canvas" width="1224" height="1776"></canvas>
     </div>
 
     <script>
@@ -135,39 +107,39 @@
         let bgImage = new Image();
         let studentImage = null;
 
-        // Coordinates matched to your template image
+        // Exact Coordinates mapped to your template layout
         const POS = {
-            // Top Right area next to the round stamp
-            inst: { x: 620, y: 850, maxWidth: 600 },
-            
-            // Central Circular Frame
-            photo: { x: 620, y: 300, radius: 150 },
-            
-            // Brown Bar Area (Shifted X to 470 for right alignment inside the bar)
-            nameFirst: { x: 612, y: 800, maxWidth: 400 },
-            nameFull: { x: 1180, y: 810, maxWidth: 380 },
-            age: { x: 630, y: 800 },
-            
-            // Bottom Area (Positioned next to "تاريخ الاختبار:")
-            dateX: 880,
-            dateH_Y: 1290,
-            dateG_Y: 1350
+            photo: { x: 500, y: 350, radius: 155 },                 // Circular photo frame
+            stdFullName: { x: 500, y: 535, maxWidth: 600 },          // Line 1: Full name inside central box
+            darajahName: { x: 500, y: 585, maxWidth: 600 },          // Line 2: Darajah inside central box
+            schoolName: { x: 500, y: 630, maxWidth: 600 },           // Line 3: School inside central box
+            marhalaName: { x: 500, y: 700, maxWidth: 500 },          // Inside ribbon box
+            marhalaCount: { x: 140, y: 1615 },                       // Bottom-left counter
+            totalCount: { x: 860, y: 1615 }                          // Bottom-right counter
         };
 
         const staticFont = "Kanz al Marjaan";
 
-        const controls = ['instName', 'instFontSize', 'fontSelect', 'stdFirstName', 'nameColor', 'stdFatherName', 'stdSurname', 'stdAge', 'dateHijri', 'dateGreg', 'photoZoom', 'photoYOffset', 'dayArabic'];
-        controls.forEach(id => document.getElementById(id).addEventListener('input', draw));
+        const controls = [
+            'marhalaName', 'marhalaColor', 'fontSelect', 'nameColor', 
+            'stdFullName', 'darajahName', 'schoolName', 
+            'marhalaCount', 'totalMarhalaCount', 'photoZoom', 'photoYOffset'
+        ];
+        
+        controls.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', draw);
+        });
 
-        // Standard single-line text helper
-        function drawText(text, x, y, maxWidth, baseSize, font, isBold, color, align='right') {
+        // Dynamic text drawing with auto-scaling
+        function drawText(text, x, y, maxWidth, baseSize, font, isBold, color, align='center') {
             if (!text) return;
             let size = baseSize;
             ctx.save();
             ctx.textAlign = align;
             ctx.fillStyle = color;
             ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
-            while (ctx.measureText(text).width > maxWidth && size > 12) {
+            while (maxWidth && ctx.measureText(text).width > maxWidth && size > 12) {
                 size--;
                 ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
             }
@@ -175,57 +147,14 @@
             ctx.restore();
         }
 
-        // Wrapped multi-line text helper with shadow support
-        function drawWrappedText(text, x, y, maxWidth, baseSize, font, isBold, color, align='center', hasShadow=false) {
-            if (!text) return;
-
-            ctx.save();
-            ctx.textAlign = align;
-            ctx.fillStyle = color;
-            ctx.font = `${isBold ? 'bold' : ''} ${baseSize}px "${font}"`;
-
-            // Apply Grey Drop Shadow if enabled
-            if (hasShadow) {
-                ctx.shadowColor = 'rgba(128, 128, 128, 0.7)';
-                ctx.shadowOffsetX = 3;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 5;
-            }
-
-            const words = text.split(' ');
-            let currentLine = '';
-            const lines = [];
-            const lineHeight = baseSize * 1.2;
-
-            for (let i = 0; i < words.length; i++) {
-                let testLine = currentLine + (currentLine ? ' ' : '') + words[i];
-                let testWidth = ctx.measureText(testLine).width;
-
-                if (testWidth > maxWidth && i > 0) {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                } else {
-                    currentLine = testLine;
-                }
-            }
-            lines.push(currentLine);
-
-            lines.forEach((line, index) => {
-                let lineY = y + (index * lineHeight);
-                ctx.fillText(line, x, lineY);
-            });
-
-            ctx.restore();
-        }
-
         function draw() {
             const studentFont = document.getElementById('fontSelect').value;
-            const chosenColor = document.getElementById('nameColor').value;
-            const currentInstFontSize = parseInt(document.getElementById('instFontSize').value);
+            const nameColor = document.getElementById('nameColor').value;
+            const marhalaColor = document.getElementById('marhalaColor').value;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 1. Draw Template Background
+            // 1. Draw static background image
             if (bgImage.complete && bgImage.src) {
                 ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
             }
@@ -239,7 +168,7 @@
                 
                 const zoom = parseFloat(document.getElementById('photoZoom').value);
                 const yOff = parseFloat(document.getElementById('photoYOffset').value);
-                const ratio = Math.max((POS.photo.radius*2) / studentImage.width, (POS.photo.radius*2) / studentImage.height) * zoom;
+                const ratio = Math.max((POS.photo.radius * 2) / studentImage.width, (POS.photo.radius * 2) / studentImage.height) * zoom;
                 
                 ctx.drawImage(
                     studentImage, 
@@ -251,64 +180,37 @@
                 ctx.restore();
             }
 
-            // 3. Institute / Mohallah Name
+            // Canvas Text Render Settings
             ctx.save();
             ctx.direction = 'rtl';
-            drawWrappedText(
-                document.getElementById('instName').value, 
-                POS.inst.x, 
-                POS.inst.y, 
-                POS.inst.maxWidth, 
-                currentInstFontSize, 
-                staticFont, 
-                true, 
-                '#a50000', 
-                'center', 
-                true 
-            );
-            ctx.restore();
 
-            // 4. Student Names & Age (Aligned Right inside Brown Bar)
-            ctx.save();
-            ctx.direction = 'rtl';
-            
-            // First Name
-            drawText(document.getElementById('stdFirstName').value, POS.nameFirst.x, POS.nameFirst.y, POS.nameFirst.maxWidth, 70, studentFont, true, chosenColor, 'right');
-            
-            // Full Name (Father + Surname)
-            const fullNameLine = (document.getElementById('stdFatherName').value + " " + document.getElementById('stdSurname').value).trim();
-            drawText(fullNameLine, POS.nameFull.x, POS.nameFull.y, POS.nameFull.maxWidth, 60, studentFont, false, chosenColor, 'right');
+            // 3. Student Details (Inside middle decorative box)
+            const fullName = document.getElementById('stdFullName').value;
+            drawText(fullName, POS.stdFullName.x, POS.stdFullName.y, POS.stdFullName.maxWidth, 52, studentFont, true, nameColor, 'center');
 
-            // Age
-            const ageText = document.getElementById('stdAge').value;
-            if (ageText) {
-                drawText(ageText + " ورس", POS.age.x, POS.age.y, 300, 55, studentFont, false, chosenColor, 'right');
-            }
-            ctx.restore();
+            const darajah = document.getElementById('darajahName').value;
+            drawText(darajah, POS.darajahName.x, POS.darajahName.y, POS.darajahName.maxWidth, 38, studentFont, false, nameColor, 'center');
 
-            // 5. Test Date
-            ctx.save();
-            ctx.direction = 'rtl';
-            const hijriLine = document.getElementById('dateHijri').value + (document.getElementById('dayArabic').value ? "، " + document.getElementById('dayArabic').value : "");
-            drawText(hijriLine, POS.dateX, POS.dateH_Y, 800, 65, "Kanz-al-Marjaan", true, '#1b5e20', 'right');
+            const school = document.getElementById('schoolName').value;
+            drawText(school, POS.schoolName.x, POS.schoolName.y, POS.schoolName.maxWidth, 36, studentFont, false, nameColor, 'center');
 
-            ctx.direction = 'ltr';
-            drawText(document.getElementById('dateGreg').value, POS.dateX, POS.dateG_Y, 800, 45, "Amiri", false, '#1b5e20', 'right');
+            // 4. Marhala Title (Inside Ribbon)
+            const marhala = document.getElementById('marhalaName').value;
+            drawText(marhala, POS.marhalaName.x, POS.marhalaName.y, POS.marhalaName.maxWidth, 65, studentFont, true, marhalaColor, 'center');
+
+            // 5. Counters at Bottom
+            const mCount = document.getElementById('marhalaCount').value;
+            drawText(mCount, POS.marhalaCount.x, POS.marhalaCount.y, null, 42, staticFont, true, nameColor, 'center');
+
+            const tCount = document.getElementById('totalMarhalaCount').value;
+            drawText(tCount, POS.totalCount.x, POS.totalCount.y, null, 42, staticFont, true, nameColor, 'center');
+
             ctx.restore();
         }
 
-        function updateBackground() {
-            const url = document.getElementById('templateSelect').value;
-            if(url) { 
-                bgImage.crossOrigin = "anonymous"; 
-                bgImage.src = url; 
-                bgImage.onload = draw; 
-            }
-        }
-
-        // Initialize default background image on load
+        // Initialize template background on page load
         window.onload = () => {
-            bgImage.src = document.getElementById('templateSelect').value || "SBHS_Ikhtebar_Post.png";
+            bgImage.src = "SBHS_Ikhtebar_Post_3.jpg";
             bgImage.onload = draw;
         };
 
@@ -324,7 +226,7 @@
 
         function download() {
             const link = document.createElement('a');
-            link.download = 'Ikhtibar_Post.png';
+            link.download = 'Ikhtebar_Post.png';
             link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
         }
