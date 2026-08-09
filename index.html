@@ -44,14 +44,14 @@
             <label>Select Marhala</label>
             <select id="templateSelect" onchange="updateBackground()">
                 <option value="">--Select Marhala--</option>
-                <option value="M1.jpg">Marhala 1</option>
-                <option value="M2.jpg">Marhala 2</option>
-                <option value="M3.jpg">Marhala 3</option>
-                <option value="M4.jpg">Marhala 4</option>
-                <option value="M5.jpg">Marhala 5</option>
-                <option value="M6.jpg">Marhala 6</option>
-                <option value="M7.jpg">Marhala 7</option>
-                <option value="M8.jpg">Marhala 8</option>
+                <option value="Marhala Names_1.png">Marhala 1</option>
+                <option value="Marhala Names_2.png">Marhala 2</option>
+                <option value="Marhala Names_3.png">Marhala 3</option>
+                <option value="Marhala Names_4.png">Marhala 4</option>
+                <option value="Marhala Names_5.png">Marhala 5</option>
+                <option value="Marhala Names_6.png">Marhala 6</option>
+                <option value="Marhala Names_7.png">Marhala 7</option>
+                <option value="Marhala Names_8.png">Marhala 8</option>
                 <option value="IN.jpg">Ikhtebaar Nihaee</option>
             </select>
         </div>
@@ -92,10 +92,8 @@
 
         <div class="field">
             <label>Student Details</label>
-            <input type="text" id="stdFirstName" placeholder="الاسم (First Name)">
-            <input type="text" id="stdFatherName" placeholder="اسم الوالد / زوج (Father/Husband)">
-            <input type="text" id="stdSurname" placeholder="اللقب (Surname)">
-            <input type="text" id="stdAge" placeholder="العمر (Age)">
+            <input type="text" id="stdFirstName" placeholder="Full Name of the Farzand">
+            <input type="text" id="stdAge" placeholder="Age">
         </div>
 
         <div class="field">
@@ -140,15 +138,15 @@
         // Coordinates matched to your template image
         const POS = {
             // Top Right area next to the round stamp
-            inst: { x: 620, y: 450, maxWidth: 600 },
+            inst: { x: 620, y: 850, maxWidth: 600 },
             
             // Central Circular Frame
-            photo: { x: 605, y: 807, radius: 168 },
+            photo: { x: 620, y: 300, radius: 150 },
             
             // Brown Bar Area (Shifted X to 470 for right alignment inside the bar)
-            nameFirst: { x: 1180, y: 720, maxWidth: 400 },
+            nameFirst: { x: 612, y: 800, maxWidth: 400 },
             nameFull: { x: 1180, y: 810, maxWidth: 380 },
-            age: { x: 1180, y: 910 },
+            age: { x: 630, y: 800 },
             
             // Bottom Area (Positioned next to "تاريخ الاختبار:")
             dateX: 880,
