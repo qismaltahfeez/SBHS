@@ -1,333 +1,311 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ikhtibar Post Generator</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Custom Uploaded Fonts */
-        @font-face {
-            font-family: 'Kanz al Marjaan';
-            src: url('Kanz-al-Marjaan.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Al-Kanz for Windows';
-            src: url('Al-Kanz for Windows.ttf') format('truetype');
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikhtebar Post Generator - Precise Coordinate Adjuster</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'Kanz al Marjaan';
+            src: url('Kanz-al-Marjaan.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: 'Al-Kanz for Windows';
+            src: url('Al-Kanz for Windows.ttf') format('truetype');
+        }
 
-        :root { --primary: #1a5276; --gold: #d4af37; --bg: #1a1a2e; }
-        body { font-family: 'Amiri', serif; background: var(--bg); color: #ecf0f1; margin: 0; padding: 20px; display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
-        
-        .editor-panel { background: #ffffff; color: #2c3e50; padding: 25px; border-radius: 15px; width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-top: 8px solid var(--gold); height: 95vh; overflow-y: auto; text-align: left; }
-        h2 { font-family: 'Aref Ruqaa', serif; text-align: left; color: var(--primary); margin-top: 0; }
-        .field { margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
-        label { display: block; font-size: 0.85em; font-weight: bold; margin-bottom: 5px; color: #34495e; text-align: left; }
-        
-        input[type="text"], select, input[type="file"], input[type="range"], input[type="color"] { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #bdc3c7; box-sizing: border-box; font-family: 'Amiri'; font-size: 1em; }
-        input[type="color"] { height: 45px; cursor: pointer; padding: 2px; }
-        .preview-container { text-align: center; position: sticky; top: 20px; }
-        canvas { border: 10px solid #fff; box-shadow: 0 15px 45px rgba(0,0,0,0.4); max-width: 500px; height: auto; background: #fff; border-radius: 4px; }
-        button { width: 100%; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-family: 'Aref Ruqaa'; font-weight: bold; background: #27ae60; color: white; font-size: 1.2em; margin-top: 10px; transition: 0.3s; }
-        button:hover { background: #219150; }
-        @media (max-width: 900px) { body { flex-direction: column; align-items: center; } .editor-panel { width: 90%; height: auto; } }
-    </style>
+        :root { --primary: #1a5276; --gold: #d4af37; --bg: #1a1a2e; }
+        body { font-family: 'Amiri', serif; background: var(--bg); color: #ecf0f1; margin: 0; padding: 20px; display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
+        
+        .editor-panel { background: #ffffff; color: #2c3e50; padding: 25px; border-radius: 15px; width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-top: 8px solid var(--gold); height: 95vh; overflow-y: auto; text-align: right; }
+        h2, h3 { font-family: 'Aref Ruqaa', serif; text-align: center; color: var(--primary); margin-top: 0; }
+        h3 { color: var(--gold); border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 15px; }
+        .field { margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+        label { display: block; font-size: 0.85em; font-weight: bold; margin-bottom: 5px; color: #34495e; }
+        
+        input[type="text"], select, input[type="file"], input[type="range"], input[type="color"] { width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #bdc3c7; box-sizing: border-box; font-family: 'Amiri'; font-size: 0.95em; }
+        input[type="color"] { height: 40px; cursor: pointer; padding: 2px; }
+        .inline-group { display: flex; gap: 10px; }
+        .inline-group div { flex: 1; }
+        .preview-container { text-align: center; position: sticky; top: 20px; }
+        canvas { border: 10px solid #fff; box-shadow: 0 15px 45px rgba(0,0,0,0.4); max-width: 500px; height: auto; background: #fff; border-radius: 4px; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-family: 'Aref Ruqaa'; font-weight: bold; background: #27ae60; color: white; font-size: 1.2em; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: #219150; }
+        @media (max-width: 900px) { body { flex-direction: column; align-items: center; } .editor-panel { width: 90%; height: auto; } }
+    </style>
 </head>
 <body>
 
-    <div class="editor-panel">
-        <h2>Ikhtebaar Appreciation Post</h2>
-        
-        <div class="field">
-            <label>Select Marhala</label>
-            <select id="templateSelect">
-                <option value="">--Select Marhala--</option>
-                <option value="Marhala Names_1.png">Marhala 1</option>
-                <option value="Marhala Names_2.png">Marhala 2</option>
-                <option value="Marhala Names_3.png">Marhala 3</option>
-                <option value="Marhala Names_4.png">Marhala 4</option>
-                <option value="Marhala Names_5.png">Marhala 5</option>
-                <option value="Marhala Names_6.png">Marhala 6</option>
-                <option value="Marhala Names_7.png">Marhala 7</option>
-                <option value="Marhala Names_8.png">Marhala 8</option>
-                <option value="IN.jpg">Ikhtebaar Nihaee</option>
-            </select>
-        </div>
+    <div class="editor-panel">
+        <h2>Post Editor & Fine Tuner</h2>
+        
+        <!-- 1. Photo Section & Controls -->
+        <div class="field">
+            <h3>1. Photo & Circle Frame</h3>
+            <input type="file" id="studentUpload" accept="image/*">
+            
+            <div class="inline-group" style="margin-top:8px;">
+                <div>
+                    <label>Zoom</label>
+                    <input type="range" id="photoZoom" min="0.5" max="3.0" step="0.05" value="1">
+                </div>
+                <div>
+                    <label>Y-Offset</label>
+                    <input type="range" id="photoYOffset" min="-500" max="500" value="0">
+                </div>
+            </div>
+            
+            <div class="inline-group" style="margin-top:8px;">
+                <div>
+                    <label>Frame Circle X</label>
+                    <input type="range" id="photoFrameX" min="100" max="1124" value="612">
+                </div>
+                <div>
+                    <label>Frame Circle Y</label>
+                    <input type="range" id="photoFrameY" min="100" max="1500" value="580">
+                </div>
+                <div>
+                    <label>Radius</label>
+                    <input type="range" id="photoFrameRadius" min="50" max="400" value="245">
+                </div>
+            </div>
+        </div>
 
-        <div class="field">
-            <label>Darajah</label>
-            <select id="instName">
-                <option value="">-- Select --</option>
-                <option value="الدرجة الاولة">1</option>
-                <option value="الدرجة الثانية">2</option>
-                <option value="الدرجة الثالثة">3</option>
-                <option value="الدرجة الرابعة">4</option>
-                <option value="الدرجة الخامسة">5</option>
-                <option value="الدرجة السادسة">6</option>
-                <option value="الدرجة السابعة">7</option>
-                <option value="الدرجة الثامنة">8</option>
-                <option value="الدرجة التاسعة">9</option>
-                <option value="الدرجة العاشرة">10</option>
-         
-            </select>
+        <!-- 2. Student Details & Controls -->
+        <div class="field">
+            <h3>2. Full Name & Class</h3>
+            <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل">
+            <input type="text" id="stdClass" placeholder="الدرجة / الصف" style="margin-top:5px;">
+            
+            <label style="margin-top:8px;">Font Family & Color</label>
+            <div class="inline-group">
+                <select id="fontSelect">
+                    <option value="Amiri">Amiri</option>
+                    <option value="Aref Ruqaa">Aref Ruqaa</option>
+                    <option value="Scheherazade New">Scheherazade New</option>
+                    <option value="Al-Kanz for Windows">Al-Kanz</option>
+                    <option value="Kanz al Marjaan">Kanz al Marjaan</option>
+                </select>
+                <input type="color" id="nameColor" value="#8b1e1e">
+            </div>
 
-            <label style="font-size:0.75em; margin-top:8px;">Institute Font Size:</label>
-            <input type="range" id="instFontSize" min="10" max="100" value="42" step="1">
-        </div>
+            <label style="margin-top:8px;">Full Name Position (X, Y)</label>
+            <div class="inline-group">
+                <input type="range" id="nameX" min="100" max="1124" value="612">
+                <input type="range" id="nameY" min="500" max="1500" value="920">
+            </div>
 
-        <div class="field">
-            <label>Typography (Student Details)</label>
-            <select id="fontSelect">
-                <option value="Amiri">Amiri (Default)</option>
-                <option value="Aref Ruqaa">Aref Ruqaa</option>
-                <option value="Scheherazade New">Scheherazade New</option>
-                <option value="Al-Kanz for Windows">Al-Kanz</option>
-                <option value="Kanz al Marjaan">Kanz al Marjaan</option>
-            </select>
-            <label style="font-size: 0.75em; margin-top:8px;">ٍSelect Color</label>
-            <input type="color" id="nameColor" value="#ffffff">
-        </div>
+            <label style="margin-top:8px;">Class Position (X, Y)</label>
+            <div class="inline-group">
+                <input type="range" id="classX" min="100" max="1124" value="612">
+                <input type="range" id="classY" min="500" max="1500" value="990">
+            </div>
+        </div>
 
-        <div class="field">
-            <label>Student Details</label>
-            <input type="text" id="stdFirstName" placeholder="Full Name of the Farzand">
-            <input type="text" id="stdAge" placeholder="Age">
-        </div>
+        <!-- 3. Ribbon PNG Controls -->
+        <div class="field">
+            <h3>3. Marhala PNG Ribbon</h3>
+            <select id="marhalaPngSelect">
+                <option value="">-- Select Marhala PNG --</option>
+                <option value="marhala1.png">المرحلة الأولى</option>
+                <option value="marhala2.png">المرحلة الثانية</option>
+                <option value="marhala3.png">المرحلة الثالثة</option>
+                <option value="marhala4.png">المرحلة الرابعة</option>
+                <option value="marhala5.png">المرحلة الخامسة</option>
+                <option value="marhala6.png">المرحلة السادسة</option>
+                <option value="marhala7.png">المرحلة السابعة</option>
+                <option value="marhala8.png">المرحلة الثامنة</option>
+            </select>
 
-        <div class="field">
-            <label>Day & Dates</label>
-            <select id="dayArabic">
-                <option value="">-- Day --</option>
-                <option value="يوم الإثنين">يوم الإثنين</option>
-                <option value="يوم الثلاثاء">يوم الثلاثاء</option>
-                <option value="يوم الأربعاء">يوم الأربعاء</option>
-                <option value="يوم الخميس">يوم الخميس</option>
-                <option value="يوم الجمعة">يوم الجمعة</option>
-                <option value="يوم السبت">يوم السبت</option>
-                <option value="يوم الأحد">يوم الأحد</option>
-            </select>
-            <input type="text" id="dateHijri" placeholder="Hijri Date">
-            <input type="text" id="dateGreg" placeholder="Gregorian Date">
-        </div>
+            <label style="margin-top:8px;">Ribbon PNG (X, Y)</label>
+            <div class="inline-group">
+                <input type="range" id="ribbonX" min="0" max="1000" value="382">
+                <input type="range" id="ribbonY" min="500" max="1600" value="1120">
+            </div>
 
-        <div class="field">
-            <label>Photo Controls</label>
-            <input type="file" id="studentUpload" accept="image/*">
-            <label style="font-size:0.7em; margin-top:5px;">Zoom</label>
-            <input type="range" id="photoZoom" min="0.5" max="3.0" step="0.1" value="1">
-            <label style="font-size:0.7em; margin-top:5px;">Vertical Position</label>
-            <input type="range" id="photoYOffset" min="-500" max="500" value="0">
-        </div>
+            <label style="margin-top:8px;">Ribbon PNG (Width, Height)</label>
+            <div class="inline-group">
+                <input type="range" id="ribbonW" min="100" max="1000" value="460">
+                <input type="range" id="ribbonH" min="20" max="400" value="110">
+            </div>
+        </div>
 
-        <button onclick="download()">Download PNG</button>
-    </div>
+        <!-- 4. Marhala Counts -->
+        <div class="field">
+            <h3>4. Counts (Bottom Left / Right)</h3>
+            <div class="inline-group">
+                <div>
+                    <label>Marhala Count</label>
+                    <input type="text" id="marhalaCount" placeholder="Left Count">
+                </div>
+                <div>
+                    <label>Total Count</label>
+                    <input type="text" id="totalMarhalaCount" placeholder="Right Count">
+                </div>
+            </div>
+        </div>
 
-    <div class="preview-container">
-        <!-- Canvas dimensions matching template aspect ratio -->
-        <canvas id="canvas" width="1224" height="1550"></canvas>
-    </div>
+        <button onclick="download()">Download PNG</button>
+    </div>
 
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let bgImage = new Image();
-        let studentImage = null;
+    <div class="preview-container">
+        <canvas id="canvas" width="1224" height="1776"></canvas>
+    </div>
 
-        // Coordinates matched to your template image
-        const POS = {
-            // Top Right area next to the round stamp
-            inst: { x: 620, y: 850, maxWidth: 600 },
-            
-            // Central Circular Frame
-            photo: { x: 620, y: 300, radius: 150 },
-            
-            // Brown Bar Area (Shifted X to 470 for right alignment inside the bar)
-            nameFirst: { x: 612, y: 800, maxWidth: 400 },
-            nameFull: { x: 1180, y: 810, maxWidth: 380 },
-            age: { x: 630, y: 800 },
-            
-            // Bottom Area (Positioned next to "تاريخ الاختبار:")
-            dateX: 880,
-            dateH_Y: 1290,
-            dateG_Y: 1350
-        };
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let bgImage = new Image();
+        let studentImage = null;
+        let marhalaOverlayImage = null;
 
-        const staticFont = "Kanz al Marjaan";
+        const staticFont = "Kanz al Marjaan";
 
-        const controls = ['instName', 'instFontSize', 'fontSelect', 'stdFirstName', 'nameColor', 'stdFatherName', 'stdSurname', 'stdAge', 'dateHijri', 'dateGreg', 'photoZoom', 'photoYOffset', 'dayArabic'];
-        controls.forEach(id => document.getElementById(id).addEventListener('input', draw));
+        // Collect control elements
+        const controls = [
+            'stdFullName', 'stdClass', 'fontSelect', 'nameColor',
+            'marhalaCount', 'totalMarhalaCount', 'photoZoom', 'photoYOffset',
+            'photoFrameX', 'photoFrameY', 'photoFrameRadius',
+            'nameX', 'nameY', 'classX', 'classY',
+            'ribbonX', 'ribbonY', 'ribbonW', 'ribbonH'
+        ];
+        
+        controls.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', draw);
+        });
 
-        // Standard single-line text helper
-        function drawText(text, x, y, maxWidth, baseSize, font, isBold, color, align='right') {
-            if (!text) return;
-            let size = baseSize;
-            ctx.save();
-            ctx.textAlign = align;
-            ctx.fillStyle = color;
-            ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
-            while (ctx.measureText(text).width > maxWidth && size > 12) {
-                size--;
-                ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
-            }
-            ctx.fillText(text, x, y);
-            ctx.restore();
-        }
+        document.getElementById('marhalaPngSelect').addEventListener('change', (e) => {
+            const src = e.target.value;
+            if (src) {
+                marhalaOverlayImage = new Image();
+                marhalaOverlayImage.crossOrigin = "anonymous";
+                marhalaOverlayImage.onload = draw;
+                marhalaOverlayImage.src = src;
+            } else {
+                marhalaOverlayImage = null;
+                draw();
+            }
+        });
 
-        // Wrapped multi-line text helper with shadow support
-        function drawWrappedText(text, x, y, maxWidth, baseSize, font, isBold, color, align='center', hasShadow=false) {
-            if (!text) return;
+        function drawText(text, x, y, maxWidth, baseSize, font, isBold, color, align='center') {
+            if (!text) return;
+            let size = baseSize;
+            ctx.save();
+            ctx.textAlign = align;
+            ctx.fillStyle = color;
+            ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
+            while (maxWidth && ctx.measureText(text).width > maxWidth && size > 12) {
+                size--;
+                ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
+            }
+            ctx.fillText(text, x, y);
+            ctx.restore();
+        }
 
-            ctx.save();
-            ctx.textAlign = align;
-            ctx.fillStyle = color;
-            ctx.font = `${isBold ? 'bold' : ''} ${baseSize}px "${font}"`;
+        function draw() {
+            const studentFont = document.getElementById('fontSelect').value;
+            const chosenColor = document.getElementById('nameColor').value;
 
-            // Apply Grey Drop Shadow if enabled
-            if (hasShadow) {
-                ctx.shadowColor = 'rgba(128, 128, 128, 0.7)';
-                ctx.shadowOffsetX = 3;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 5;
-            }
+            // Canvas parameters read directly from input controls
+            const frameX = parseInt(document.getElementById('photoFrameX').value);
+            const frameY = parseInt(document.getElementById('photoFrameY').value);
+            const frameRadius = parseInt(document.getElementById('photoFrameRadius').value);
 
-            const words = text.split(' ');
-            let currentLine = '';
-            const lines = [];
-            const lineHeight = baseSize * 1.2;
+            const nX = parseInt(document.getElementById('nameX').value);
+            const nY = parseInt(document.getElementById('nameY').value);
 
-            for (let i = 0; i < words.length; i++) {
-                let testLine = currentLine + (currentLine ? ' ' : '') + words[i];
-                let testWidth = ctx.measureText(testLine).width;
+            const cX = parseInt(document.getElementById('classX').value);
+            const cY = parseInt(document.getElementById('classY').value);
 
-                if (testWidth > maxWidth && i > 0) {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                } else {
-                    currentLine = testLine;
-                }
-            }
-            lines.push(currentLine);
+            const rX = parseInt(document.getElementById('ribbonX').value);
+            const rY = parseInt(document.getElementById('ribbonY').value);
+            const rW = parseInt(document.getElementById('ribbonW').value);
+            const rH = parseInt(document.getElementById('ribbonH').value);
 
-            lines.forEach((line, index) => {
-                let lineY = y + (index * lineHeight);
-                ctx.fillText(line, x, lineY);
-            });
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 1. Draw Template Background
+            if (bgImage.complete && bgImage.src) {
+                ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            }
 
-            ctx.restore();
-        }
+            // 2. Student Photo Frame
+            if (studentImage) {
+                ctx.save();
+                ctx.beginPath(); 
+                ctx.arc(frameX, frameY, frameRadius, 0, Math.PI * 2); 
+                ctx.clip();
+                
+                const zoom = parseFloat(document.getElementById('photoZoom').value);
+                const yOff = parseFloat(document.getElementById('photoYOffset').value);
+                const ratio = Math.max((frameRadius * 2) / studentImage.width, (frameRadius * 2) / studentImage.height) * zoom;
+                
+                ctx.drawImage(
+                    studentImage, 
+                    frameX - (studentImage.width * ratio / 2), 
+                    frameY - (studentImage.height * ratio / 2) + yOff, 
+                    studentImage.width * ratio, 
+                    studentImage.height * ratio
+                );
+                ctx.restore();
+            }
 
-        function draw() {
-            const studentFont = document.getElementById('fontSelect').value;
-            const chosenColor = document.getElementById('nameColor').value;
-            const currentInstFontSize = parseInt(document.getElementById('instFontSize').value);
+            // 3. Marhala PNG Overlay inside Ribbon
+            if (marhalaOverlayImage && marhalaOverlayImage.complete) {
+                ctx.save();
+                ctx.drawImage(marhalaOverlayImage, rX, rY, rW, rH);
+                ctx.restore();
+            }
 
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // 1. Draw Template Background
-            if (bgImage.complete && bgImage.src) {
-                ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-            }
+            // 4. Dynamic Text Render
+            ctx.save();
+            ctx.direction = 'rtl';
 
-            // 2. Student Photo (Inside Circular Mask)
-            if (studentImage) {
-                ctx.save();
-                ctx.beginPath(); 
-                ctx.arc(POS.photo.x, POS.photo.y, POS.photo.radius, 0, Math.PI * 2); 
-                ctx.clip();
-                
-                const zoom = parseFloat(document.getElementById('photoZoom').value);
-                const yOff = parseFloat(document.getElementById('photoYOffset').value);
-                const ratio = Math.max((POS.photo.radius*2) / studentImage.width, (POS.photo.radius*2) / studentImage.height) * zoom;
-                
-                ctx.drawImage(
-                    studentImage, 
-                    POS.photo.x - (studentImage.width * ratio / 2), 
-                    POS.photo.y - (studentImage.height * ratio / 2) + yOff, 
-                    studentImage.width * ratio, 
-                    studentImage.height * ratio
-                );
-                ctx.restore();
-            }
+            // Full Name inside upper box
+            const fullName = document.getElementById('stdFullName').value;
+            drawText(fullName, nX, nY, 650, 55, studentFont, true, chosenColor, 'center');
 
-            // 3. Institute / Mohallah Name
-            ctx.save();
-            ctx.direction = 'rtl';
-            drawWrappedText(
-                document.getElementById('instName').value, 
-                POS.inst.x, 
-                POS.inst.y, 
-                POS.inst.maxWidth, 
-                currentInstFontSize, 
-                staticFont, 
-                true, 
-                '#a50000', 
-                'center', 
-                true 
-            );
-            ctx.restore();
+            // Class inside upper box below name
+            const className = document.getElementById('stdClass').value;
+            drawText(className, cX, cY, 650, 42, studentFont, false, chosenColor, 'center');
 
-            // 4. Student Names & Age (Aligned Right inside Brown Bar)
-            ctx.save();
-            ctx.direction = 'rtl';
-            
-            // First Name
-            drawText(document.getElementById('stdFirstName').value, POS.nameFirst.x, POS.nameFirst.y, POS.nameFirst.maxWidth, 70, studentFont, true, chosenColor, 'right');
-            
-            // Full Name (Father + Surname)
-            const fullNameLine = (document.getElementById('stdFatherName').value + " " + document.getElementById('stdSurname').value).trim();
-            drawText(fullNameLine, POS.nameFull.x, POS.nameFull.y, POS.nameFull.maxWidth, 60, studentFont, false, chosenColor, 'right');
+            // Bottom-Left Marhala Count
+            const mCount = document.getElementById('marhalaCount').value;
+            drawText(mCount, 180, 1615, null, 48, staticFont, true, chosenColor, 'center');
 
-            // Age
-            const ageText = document.getElementById('stdAge').value;
-            if (ageText) {
-                drawText(ageText + " ورس", POS.age.x, POS.age.y, 300, 55, studentFont, false, chosenColor, 'right');
-            }
-            ctx.restore();
+            // Bottom-Right Total Count
+            const tCount = document.getElementById('totalMarhalaCount').value;
+            drawText(tCount, 1044, 1615, null, 48, staticFont, true, chosenColor, 'center');
 
-            // 5. Test Date
-            ctx.save();
-            ctx.direction = 'rtl';
-            const hijriLine = document.getElementById('dateHijri').value + (document.getElementById('dayArabic').value ? "، " + document.getElementById('dayArabic').value : "");
-            drawText(hijriLine, POS.dateX, POS.dateH_Y, 800, 65, "Kanz-al-Marjaan", true, '#1b5e20', 'right');
+            ctx.restore();
+        }
 
-            ctx.direction = 'ltr';
-            drawText(document.getElementById('dateGreg').value, POS.dateX, POS.dateG_Y, 800, 45, "Amiri", false, '#1b5e20', 'right');
-            ctx.restore();
-        }
+        window.onload = () => {
+            bgImage.src = "SBHS_Ikhtebar_Post_4.jpg";
+            bgImage.onload = draw;
+        };
 
-        function updateBackground() {
-            const url = document.getElementById('templateSelect').value;
-            if(url) { 
-                bgImage.crossOrigin = "anonymous"; 
-                bgImage.src = url; 
-                bgImage.onload = draw; 
-            }
-        }
+        document.getElementById('studentUpload').onchange = (e) => {
+            const reader = new FileReader();
+            reader.onload = (f) => { 
+                studentImage = new Image(); 
+                studentImage.onload = draw; 
+                studentImage.src = f.target.result; 
+            };
+            if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+        };
 
-        // Initialize default background image on load
-        window.onload = () => {
-            bgImage.src = document.getElementById('templateSelect').value || "SBHS_Ikhtebar_Post.png";
-            bgImage.onload = draw;
-        };
-
-        document.getElementById('studentUpload').onchange = (e) => {
-            const reader = new FileReader();
-            reader.onload = (f) => { 
-                studentImage = new Image(); 
-                studentImage.onload = draw; 
-                studentImage.src = f.target.result; 
-            };
-            reader.readAsDataURL(e.target.files[0]);
-        };
-
-        function download() {
-            const link = document.createElement('a');
-            link.download = 'Ikhtibar_Post.png';
-            link.href = canvas.toDataURL('image/png', 1.0);
-            link.click();
-        }
-    </script>
+        function download() {
+            const link = document.createElement('a');
+            link.download = 'Ikhtebar_Post.png';
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+        }
+    </script>
 </body>
 </html>
