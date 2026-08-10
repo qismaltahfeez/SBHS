@@ -33,7 +33,7 @@
     <div class="editor-panel">
         <h2>Post Editor</h2>
         
-        <!-- 1. Photo Controls (Fixed Frame, Zoom & Slide Only) -->
+        <!-- 1. Photo Controls -->
         <div class="field">
             <h3>1. Photo Controls</h3>
             <label>Upload Student Photo:</label>
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <!-- 2. Fixed Position Student Details -->
+        <!-- 2. Student Details -->
         <div class="field">
             <h3>2. Full Name & Class</h3>
             <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل">
@@ -69,11 +69,21 @@
             </div>
         </div>
 
-        <!-- 3. Marhala Ribbon PNG Selection -->
+        <!-- 3. Marhala Dropdown with Image URLs -->
         <div class="field">
-            <h3>3. Marhala Ribbon Image</h3>
-            <label>Upload Marhala PNG Image:</label>
-            <input type="file" id="ribbonPngUpload" accept="image/*">
+            <h3>3. Select Marhala Name</h3>
+            <label>Select Marhala Category:</label>
+            <select id="marhalaSelect">
+                <option value="">-- Choose Marhala --</option>
+                <option value="https://example.com/marhala1.png">المرحلة الأولى</option>
+                <option value="https://example.com/marhala2.png">المرحلة الثانية</option>
+                <option value="https://example.com/marhala3.png">المرحلة الثالثة</option>
+                <option value="https://example.com/marhala4.png">المرحلة الرابعة</option>
+                <option value="https://example.com/marhala5.png">المرحلة الخامسة</option>
+                <option value="https://example.com/marhala6.png">المرحلة السادسة</option>
+                <option value="https://example.com/marhala7.png">المرحلة السابعة</option>
+                <option value="https://example.com/marhala8.png">المرحلة الثامنة</option>
+            </select>
         </div>
 
         <!-- 4. Counts -->
@@ -106,22 +116,27 @@
         let studentImage = null;
         let marhalaOverlayImage = null;
 
-        // FIXED POSITIONS AND DIMENSIONS
-        const FIXED = {
-            photoX: 612,
-            photoY: 580,
-            photoRadius: 245,
+        // EXACT CANVAS COORDINATES AXIS (Base Resolution: 1224 x 1776)
+        const PHOTO_X = 612;
+        const PHOTO_Y = 580;
+        const PHOTO_RADIUS = 245;
 
-            nameX: 612,
-            nameY: 920,
-            classX: 612,
-            classY: 990,
+        const NAME_X = 612;
+        const NAME_Y = 920;
 
-            ribbonBoxX: 382,
-            ribbonBoxY: 1120,
-            ribbonBoxW: 460,
-            ribbonBoxH: 110
-        };
+        const CLASS_X = 612;
+        const CLASS_Y = 990;
+
+        const RIBBON_CENTER_X = 612;
+        const RIBBON_CENTER_Y = 1175;
+        const RIBBON_MAX_WIDTH = 460;
+        const RIBBON_MAX_HEIGHT = 110;
+
+        const COUNT_LEFT_X = 180;
+        const COUNT_LEFT_Y = 1615;
+
+        const COUNT_RIGHT_X = 1044;
+        const COUNT_RIGHT_Y = 1615;
 
         const controls = [
             'stdFullName', 'stdClass', 'fontSelect', 'nameColor',
@@ -136,9 +151,24 @@
             }
         });
 
-        // Hardcoded Background Template Loading
+        // Dropdown Selection for Marhala PNG via URL
+        document.getElementById('marhalaSelect').addEventListener('change', (e) => {
+            const imageUrl = e.target.value;
+            if (imageUrl) {
+                marhalaOverlayImage = new Image();
+                marhalaOverlayImage.crossOrigin = "anonymous";
+                marhalaOverlayImage.onload = draw;
+                marhalaOverlayImage.src = imageUrl;
+            } else {
+                marhalaOverlayImage = null;
+                draw();
+            }
+        });
+
+        // Load Base Background
+        bgImage.crossOrigin = "anonymous";
         bgImage.onload = draw;
-        bgImage.src = "SBHS_Ikhtebar_Post.png";
+        bgImage.src = "SBHS_Ikhtebar_Post_4.jpg";
 
         // Student Photo Loader
         document.getElementById('studentUpload').onchange = (e) => {
@@ -149,20 +179,6 @@
                     studentImage = new Image(); 
                     studentImage.onload = draw; 
                     studentImage.src = f.target.result; 
-                };
-                reader.readAsDataURL(file);
-            }
-        };
-
-        // Ribbon PNG Loader
-        document.getElementById('ribbonPngUpload').onchange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (f) => { 
-                    marhalaOverlayImage = new Image(); 
-                    marhalaOverlayImage.onload = draw; 
-                    marhalaOverlayImage.src = f.target.result; 
                 };
                 reader.readAsDataURL(file);
             }
@@ -189,66 +205,66 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 1. Fixed Background Image Rendering
-            if (bgImage && bgImage.complete) {
+            // 1. Draw Background Template
+            if (bgImage && bgImage.complete && bgImage.naturalWidth !== 0) {
                 ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
             }
 
-            // 2. Student Photo (Fixed Circular Mask with Zoom & Slide)
+            // 2. Student Photo (Circular Mask)
             if (studentImage && studentImage.complete) {
                 ctx.save();
                 ctx.beginPath(); 
-                ctx.arc(FIXED.photoX, FIXED.photoY, FIXED.photoRadius, 0, Math.PI * 2); 
+                ctx.arc(PHOTO_X, PHOTO_Y, PHOTO_RADIUS, 0, Math.PI * 2); 
                 ctx.clip();
                 
                 const zoom = parseFloat(document.getElementById('photoZoom').value);
                 const yOff = parseFloat(document.getElementById('photoYOffset').value);
-                const ratio = Math.max((FIXED.photoRadius * 2) / studentImage.width, (FIXED.photoRadius * 2) / studentImage.height) * zoom;
+                const ratio = Math.max((PHOTO_RADIUS * 2) / studentImage.width, (PHOTO_RADIUS * 2) / studentImage.height) * zoom;
                 
                 ctx.drawImage(
                     studentImage, 
-                    FIXED.photoX - (studentImage.width * ratio / 2), 
-                    FIXED.photoY - (studentImage.height * ratio / 2) + yOff, 
+                    PHOTO_X - (studentImage.width * ratio / 2), 
+                    PHOTO_Y - (studentImage.height * ratio / 2) + yOff, 
                     studentImage.width * ratio, 
                     studentImage.height * ratio
                 );
                 ctx.restore();
             }
 
-            // 3. Proportional Ribbon PNG Rendering (Prevents Stretching)
+            // 3. Proportional Marhala PNG Render
             if (marhalaOverlayImage && marhalaOverlayImage.complete) {
                 ctx.save();
                 
                 const scale = Math.min(
-                    FIXED.ribbonBoxW / marhalaOverlayImage.width, 
-                    FIXED.ribbonBoxH / marhalaOverlayImage.height
+                    RIBBON_MAX_WIDTH / marhalaOverlayImage.width, 
+                    RIBBON_MAX_HEIGHT / marhalaOverlayImage.height
                 );
 
                 const renderWidth = marhalaOverlayImage.width * scale;
                 const renderHeight = marhalaOverlayImage.height * scale;
 
-                const renderX = FIXED.ribbonBoxX + (FIXED.ribbonBoxW - renderWidth) / 2;
-                const renderY = FIXED.ribbonBoxY + (FIXED.ribbonBoxH - renderHeight) / 2;
+                const renderX = RIBBON_CENTER_X - (renderWidth / 2);
+                const renderY = RIBBON_CENTER_Y - (renderHeight / 2);
 
                 ctx.drawImage(marhalaOverlayImage, renderX, renderY, renderWidth, renderHeight);
                 ctx.restore();
             }
 
-            // 4. Fixed Centered Text Rendering
+            // 4. Centered Text Overlay
             ctx.save();
             ctx.direction = 'rtl';
 
             const fullName = document.getElementById('stdFullName').value;
-            drawText(fullName, FIXED.nameX, FIXED.nameY, 650, 55, studentFont, true, chosenColor, 'center');
+            drawText(fullName, NAME_X, NAME_Y, 650, 55, studentFont, true, chosenColor, 'center');
 
             const className = document.getElementById('stdClass').value;
-            drawText(className, FIXED.classX, FIXED.classY, 650, 42, studentFont, false, chosenColor, 'center');
+            drawText(className, CLASS_X, CLASS_Y, 650, 42, studentFont, false, chosenColor, 'center');
 
             const mCount = document.getElementById('marhalaCount').value;
-            drawText(mCount, 180, 1615, null, 48, studentFont, true, chosenColor, 'center');
+            drawText(mCount, COUNT_LEFT_X, COUNT_LEFT_Y, null, 48, studentFont, true, chosenColor, 'center');
 
             const tCount = document.getElementById('totalMarhalaCount').value;
-            drawText(tCount, 1044, 1615, null, 48, studentFont, true, chosenColor, 'center');
+            drawText(tCount, COUNT_RIGHT_X, COUNT_RIGHT_Y, null, 48, studentFont, true, chosenColor, 'center');
 
             ctx.restore();
         }
