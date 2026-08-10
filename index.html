@@ -31,31 +31,25 @@
 <body>
 
     <div class="editor-panel">
-        <h2>Post Editor</h2>
-        
-        <!-- 1. Photo Controls -->
-        <div class="field">
-            <h3>1. Photo Controls</h3>
-            <label>Upload Student Photo:</label>
-            <input type="file" id="studentUpload" accept="image/*">
-            
-            <div class="inline-group" style="margin-top:8px;">
-                <div>
-                    <label>Zoom In / Out</label>
-                    <input type="range" id="photoZoom" min="0.5" max="3.0" step="0.05" value="1">
-                </div>
-                <div>
-                    <label>Slide Up / Down</label>
-                    <input type="range" id="photoYOffset" min="-500" max="500" value="0">
-                </div>
-            </div>
-        </div>
+        <h2>IKHTEBAR POST GENERATER</h2>
 
-        <!-- 2. Student Details -->
+        <!-- Student Details -->
         <div class="field">
             <h3>2. Full Name & Class</h3>
-            <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل">
+            <input type="text" id="stdFullName" placeholder="Student Full Name">
             <input type="text" id="stdClass" placeholder="الدرجة / الصف" style="margin-top:5px;">
+             <select id="stdClass">
+                <option value="">-- Choose Darajah --</option>
+                <option value="الدرجة الاولة">1</option>
+                <option value="الدرجة الثانية">2</option>
+                <option value="الدرجة الثالثة">3</option>
+                <option value="الدرجة الرابعة">4</option>
+                <option value="الدرجة الخامسة">5</option>
+                <option value="الدرجة السادسة">6</option>
+                <option value="الدرجة السابعة">7</option>
+                <option value="الدرجة الثامنة">8</option>
+                 <option value="الدرجة السادسة">6</option>
+            </select>
             
             <label style="margin-top:8px;">Font Family & Text Color</label>
             <div class="inline-group">
@@ -69,7 +63,7 @@
             </div>
         </div>
 
-        <!-- 3. Marhala Dropdown with Image URLs -->
+        <!-- Marhala Dropdown with Image URLs -->
         <div class="field">
             <h3>3. Select Marhala Name</h3>
             <label>Select Marhala Category:</label>
@@ -86,7 +80,7 @@
             </select>
         </div>
 
-        <!-- 4. Counts -->
+        <!-- Counts -->
         <div class="field">
             <h3>4. Counts</h3>
             <div class="inline-group">
@@ -107,6 +101,24 @@
     <div class="preview-container">
         <canvas id="canvas" width="1224" height="1776"></canvas>
     </div>
+
+     <!-- Photo Controls -->
+        <div class="field">
+            <h3>1. Photo Controls</h3>
+            <label>Upload Student Photo:</label>
+            <input type="file" id="studentUpload" accept="image/*">
+            
+            <div class="inline-group" style="margin-top:8px;">
+                <div>
+                    <label>Zoom In / Out</label>
+                    <input type="range" id="photoZoom" min="0.5" max="3.0" step="0.05" value="1">
+                </div>
+                <div>
+                    <label>Slide Up / Down</label>
+                    <input type="range" id="photoYOffset" min="-500" max="500" value="0">
+                </div>
+            </div>
+        </div>
 
     <script>
         const canvas = document.getElementById('canvas');
