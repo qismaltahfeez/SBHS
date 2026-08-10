@@ -32,12 +32,6 @@
 
     <div class="editor-panel">
         <h2>Post Editor</h2>
-
-        <!-- Template Background Loader -->
-        <div class="field" style="background: #eef7fe; padding: 10px; border-radius: 6px;">
-            <label style="color: #1a5276;">Template Base Image</label>
-            <input type="file" id="bgUpload" accept="image/*">
-        </div>
         
         <!-- 1. Photo Controls (Fixed Frame, Zoom & Slide Only) -->
         <div class="field">
@@ -108,24 +102,21 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         
-        let bgImage = null;
+        let bgImage = new Image();
         let studentImage = null;
         let marhalaOverlayImage = null;
 
         // FIXED POSITIONS AND DIMENSIONS
         const FIXED = {
-            // Photo Circle Fixed Placement
             photoX: 612,
             photoY: 580,
             photoRadius: 245,
 
-            // Text Placement Fixed Centered in the middle rectangle
             nameX: 612,
             nameY: 920,
             classX: 612,
             classY: 990,
 
-            // Ribbon Bounding Box for Proportional Image Fitting
             ribbonBoxX: 382,
             ribbonBoxY: 1120,
             ribbonBoxW: 460,
@@ -145,19 +136,9 @@
             }
         });
 
-        // Background Image Loader
-        document.getElementById('bgUpload').onchange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (f) => { 
-                    bgImage = new Image(); 
-                    bgImage.onload = draw; 
-                    bgImage.src = f.target.result; 
-                };
-                reader.readAsDataURL(file);
-            }
-        };
+        // Hardcoded Background Template Loading
+        bgImage.onload = draw;
+        bgImage.src = "SBHS_Ikhtebar_Post_4.jpg";
 
         // Student Photo Loader
         document.getElementById('studentUpload').onchange = (e) => {
@@ -208,15 +189,9 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 1. Draw Template Background Image
+            // 1. Fixed Background Image Rendering
             if (bgImage && bgImage.complete) {
                 ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-            } else {
-                ctx.fillStyle = "#fdfbf7";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.strokeStyle = "#d4af37";
-                ctx.lineWidth = 8;
-                ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
             }
 
             // 2. Student Photo (Fixed Circular Mask with Zoom & Slide)
@@ -244,7 +219,6 @@
             if (marhalaOverlayImage && marhalaOverlayImage.complete) {
                 ctx.save();
                 
-                // Calculate Aspect Ratio Scale factor to fit inside ribbon box without stretching
                 const scale = Math.min(
                     FIXED.ribbonBoxW / marhalaOverlayImage.width, 
                     FIXED.ribbonBoxH / marhalaOverlayImage.height
@@ -253,7 +227,6 @@
                 const renderWidth = marhalaOverlayImage.width * scale;
                 const renderHeight = marhalaOverlayImage.height * scale;
 
-                // Center the proportional image within the ribbon boundary area
                 const renderX = FIXED.ribbonBoxX + (FIXED.ribbonBoxW - renderWidth) / 2;
                 const renderY = FIXED.ribbonBoxY + (FIXED.ribbonBoxH - renderHeight) / 2;
 
@@ -279,14 +252,6 @@
 
             ctx.restore();
         }
-
-        window.onload = () => {
-            const autoBg = new Image();
-            autoBg.onload = () => { bgImage = autoBg; draw(); };
-            autoBg.onerror = () => { draw(); };
-            autoBg.src = "SBHS_Ikhtebar_Post_4.jpg";
-            draw();
-        };
 
         function download() {
             const link = document.createElement('a');
