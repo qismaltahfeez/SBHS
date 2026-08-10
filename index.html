@@ -31,80 +31,11 @@
 <body>
 
     <div class="editor-panel">
-        <h2>IKHTEBAR POST GENERATER</h2>
-
-        <!-- Student Details -->
+        <h2>Post Editor</h2>
+        
+        <!-- Photo Controls -->
         <div class="field">
-            <h3>2. Full Name & Class</h3>
-            <input type="text" id="stdFullName" placeholder="Student Full Name">
-            <input type="text" id="stdClass" placeholder="الدرجة / الصف" style="margin-top:5px;">
-             <select id="stdClass">
-                <option value="">-- Choose Darajah --</option>
-                <option value="الدرجة الاولة">1</option>
-                <option value="الدرجة الثانية">2</option>
-                <option value="الدرجة الثالثة">3</option>
-                <option value="الدرجة الرابعة">4</option>
-                <option value="الدرجة الخامسة">5</option>
-                <option value="الدرجة السادسة">6</option>
-                <option value="الدرجة السابعة">7</option>
-                <option value="الدرجة الثامنة">8</option>
-                 <option value="الدرجة السادسة">6</option>
-            </select>
-            
-            <label style="margin-top:8px;">Font Family & Text Color</label>
-            <div class="inline-group">
-                <select id="fontSelect">
-                    <option value="Amiri">Amiri</option>
-                    <option value="Aref Ruqaa">Aref Ruqaa</option>
-                    <option value="Cairo">Cairo</option>
-                    <option value="Scheherazade New">Scheherazade New</option>
-                </select>
-                <input type="color" id="nameColor" value="#8b1e1e">
-            </div>
-        </div>
-
-        <!-- Marhala Dropdown with Image URLs -->
-        <div class="field">
-            <h3>3. Select Marhala Name</h3>
-            <label>Select Marhala Category:</label>
-            <select id="marhalaSelect">
-                <option value="">-- Choose Marhala --</option>
-                <option value="https://example.com/marhala1.png">المرحلة الأولى</option>
-                <option value="https://example.com/marhala2.png">المرحلة الثانية</option>
-                <option value="https://example.com/marhala3.png">المرحلة الثالثة</option>
-                <option value="https://example.com/marhala4.png">المرحلة الرابعة</option>
-                <option value="https://example.com/marhala5.png">المرحلة الخامسة</option>
-                <option value="https://example.com/marhala6.png">المرحلة السادسة</option>
-                <option value="https://example.com/marhala7.png">المرحلة السابعة</option>
-                <option value="https://example.com/marhala8.png">المرحلة الثامنة</option>
-            </select>
-        </div>
-
-        <!-- Counts -->
-        <div class="field">
-            <h3>4. Counts</h3>
-            <div class="inline-group">
-                <div>
-                    <label>Marhala Count (Left)</label>
-                    <input type="text" id="marhalaCount" placeholder="e.g. 1">
-                </div>
-                <div>
-                    <label>Total Count (Right)</label>
-                    <input type="text" id="totalMarhalaCount" placeholder="e.g. 8">
-                </div>
-            </div>
-        </div>
-
-        <button onclick="download()">Download Generated Image</button>
-    </div>
-
-    <div class="preview-container">
-        <canvas id="canvas" width="1224" height="1776"></canvas>
-    </div>
-
-     <!-- Photo Controls -->
-        <div class="field">
-            <h3>1. Photo Controls</h3>
+            <h3>Photo Controls</h3>
             <label>Upload Student Photo:</label>
             <input type="file" id="studentUpload" accept="image/*">
             
@@ -119,6 +50,82 @@
                 </div>
             </div>
         </div>
+
+        <!-- 1. Name -->
+        <div class="field">
+            <h3>1. Name</h3>
+            <label>Student Full Name:</label>
+            <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل">
+            
+            <label style="margin-top:8px;">Font Family & Text Color</label>
+            <div class="inline-group">
+                <select id="fontSelect">
+                    <option value="Amiri">Amiri</option>
+                    <option value="Aref Ruqaa">Aref Ruqaa</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Scheherazade New">Scheherazade New</option>
+                </select>
+                <input type="color" id="nameColor" value="#8b1e1e">
+            </div>
+        </div>
+
+        <!-- 2. Darajah with Dropdown -->
+        <div class="field">
+            <h3>2. Darajah</h3>
+            <label>Select Darajah:</label>
+            <select id="darajahSelect">
+                <option value="">-- اختر الدرجة --</option>
+                <option value="الدرجة الأولى">الدرجة الأولى</option>
+                <option value="الدرجة الثانية">الدرجة الثانية</option>
+                <option value="الدرجة الثالثة">الدرجة الثالثة</option>
+                <option value="الدرجة الرابعة">الدرجة الرابعة</option>
+                <option value="الدرجة الخامسة">الدرجة الخامسة</option>
+                <option value="الدرجة السادسة">الدرجة السادسة</option>
+                <option value="الدرجة السابعة">الدرجة السابعة</option>
+                <option value="الدرجة الثامنة">الدرجة الثامنة</option>
+                <option value="الدرجة التاسعة">الدرجة التاسعة</option>
+                <option value="الدرجة العاشرة">الدرجة العاشرة</option>
+            </select>
+        </div>
+
+        <!-- 3. Marhalah with Dropdown -->
+        <div class="field">
+            <h3>3. Marhalah</h3>
+            <label>Select Marhalah:</label>
+            <select id="marhalaSelect">
+                <option value="">-- اختر المرحلة --</option>
+                <option value="https://example.com/marhala1.png">المرحلة الأولى</option>
+                <option value="https://example.com/marhala2.png">المرحلة الثانية</option>
+                <option value="https://example.com/marhala3.png">المرحلة الثالثة</option>
+                <option value="https://example.com/marhala4.png">المرحلة الرابعة</option>
+                <option value="https://example.com/marhala5.png">المرحلة الخامسة</option>
+                <option value="https://example.com/marhala6.png">المرحلة السادسة</option>
+                <option value="https://example.com/marhala7.png">المرحلة السابعة</option>
+                <option value="https://example.com/marhala8.png">المرحلة الثامنة</option>
+            </select>
+        </div>
+
+        <!-- 4. Marhalah Count & 5. Total Count -->
+        <div class="field">
+            <h3>4. Marhalah Count & 5. Total Count</h3>
+            <div class="inline-group">
+                <div>
+                    <label>4. Marhalah Count (Left)</label>
+                    <input type="text" id="marhalaCount" placeholder="e.g. 1">
+                </div>
+                <div>
+                    <label>5. Total Count (Right)</label>
+                    <input type="text" id="totalMarhalaCount" placeholder="e.g. 8">
+                </div>
+            </div>
+        </div>
+
+        <button onclick="download()">Download Generated Image</button>
+    </div>
+
+    <div class="preview-container">
+        <canvas id="canvas" width="1224" height="1776"></canvas>
+    </div>
 
     <script>
         const canvas = document.getElementById('canvas');
@@ -151,7 +158,7 @@
         const COUNT_RIGHT_Y = 1615;
 
         const controls = [
-            'stdFullName', 'stdClass', 'fontSelect', 'nameColor',
+            'stdFullName', 'darajahSelect', 'fontSelect', 'nameColor',
             'marhalaCount', 'totalMarhalaCount', 'photoZoom', 'photoYOffset'
         ];
         
@@ -163,7 +170,7 @@
             }
         });
 
-        // Dropdown Selection for Marhala PNG via URL
+        // Dropdown Selection for Marhalah PNG via URL
         document.getElementById('marhalaSelect').addEventListener('change', (e) => {
             const imageUrl = e.target.value;
             if (imageUrl) {
@@ -180,7 +187,7 @@
         // Load Base Background
         bgImage.crossOrigin = "anonymous";
         bgImage.onload = draw;
-        bgImage.src = "SBHS_Ikhtebar_Post.png";
+        bgImage.src = "SBHS_Ikhtebar_Post_4.jpg";
 
         // Student Photo Loader
         document.getElementById('studentUpload').onchange = (e) => {
@@ -243,7 +250,7 @@
                 ctx.restore();
             }
 
-            // 3. Proportional Marhala PNG Render
+            // 3. Proportional Marhalah PNG Render
             if (marhalaOverlayImage && marhalaOverlayImage.complete) {
                 ctx.save();
                 
@@ -266,15 +273,19 @@
             ctx.save();
             ctx.direction = 'rtl';
 
+            // Name
             const fullName = document.getElementById('stdFullName').value;
             drawText(fullName, NAME_X, NAME_Y, 650, 55, studentFont, true, chosenColor, 'center');
 
-            const className = document.getElementById('stdClass').value;
-            drawText(className, CLASS_X, CLASS_Y, 650, 42, studentFont, false, chosenColor, 'center');
+            // Darajah Selected from Dropdown
+            const darajah = document.getElementById('darajahSelect').value;
+            drawText(darajah, CLASS_X, CLASS_Y, 650, 42, studentFont, false, chosenColor, 'center');
 
+            // Marhalah Count (Bottom Left)
             const mCount = document.getElementById('marhalaCount').value;
             drawText(mCount, COUNT_LEFT_X, COUNT_LEFT_Y, null, 48, studentFont, true, chosenColor, 'center');
 
+            // Total Count (Bottom Right)
             const tCount = document.getElementById('totalMarhalaCount').value;
             drawText(tCount, COUNT_RIGHT_X, COUNT_RIGHT_Y, null, 48, studentFont, true, chosenColor, 'center');
 
