@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ikhtebar Post Generator - Precise Coordinate Adjuster</title>
+    <title>Ikhtebar Post Generator</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        @font-face {
-            font-family: 'Kanz al Marjaan';
-            src: url('Kanz-al-Marjaan.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Al-Kanz for Windows';
-            src: url('Al-Kanz for Windows.ttf') format('truetype');
-        }
-
         :root { --primary: #1a5276; --gold: #d4af37; --bg: #1a1a2e; }
         body { font-family: 'Amiri', serif; background: var(--bg); color: #ecf0f1; margin: 0; padding: 20px; display: flex; flex-direction: row-reverse; gap: 30px; justify-content: center; }
         
@@ -40,11 +31,18 @@
 <body>
 
     <div class="editor-panel">
-        <h2>Post Editor & Fine Tuner</h2>
+        <h2>Post Generator & Tuner</h2>
+
+        <!-- Background Template Selector -->
+        <div class="field" style="background: #eef7fe; padding: 10px; border-radius: 6px;">
+            <label style="color: #1a5276;">Template Image (SBHS_Ikhtebar_Post_4.jpg)</label>
+            <input type="file" id="bgUpload" accept="image/*">
+        </div>
         
-        <!-- 1. Photo Section & Controls -->
+        <!-- Photo Section -->
         <div class="field">
-            <h3>1. Photo & Circle Frame</h3>
+            <h3>1. Student Photo Controls</h3>
+            <label>Upload Student Photo:</label>
             <input type="file" id="studentUpload" accept="image/*">
             
             <div class="inline-group" style="margin-top:8px;">
@@ -60,11 +58,11 @@
             
             <div class="inline-group" style="margin-top:8px;">
                 <div>
-                    <label>Frame Circle X</label>
+                    <label>Circle Position X</label>
                     <input type="range" id="photoFrameX" min="100" max="1124" value="612">
                 </div>
                 <div>
-                    <label>Frame Circle Y</label>
+                    <label>Circle Position Y</label>
                     <input type="range" id="photoFrameY" min="100" max="1500" value="580">
                 </div>
                 <div>
@@ -74,20 +72,19 @@
             </div>
         </div>
 
-        <!-- 2. Student Details & Controls -->
+        <!-- Student Details -->
         <div class="field">
-            <h3>2. Full Name & Class</h3>
-            <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل">
-            <input type="text" id="stdClass" placeholder="الدرجة / الصف" style="margin-top:5px;">
+            <h3>2. Full Name & Class Controls</h3>
+            <input type="text" id="stdFullName" placeholder="اسم الطالب الكامل (Type here...)">
+            <input type="text" id="stdClass" placeholder="الدرجة / الصف (Type here...)" style="margin-top:5px;">
             
-            <label style="margin-top:8px;">Font Family & Color</label>
+            <label style="margin-top:8px;">Font Family & Text Color</label>
             <div class="inline-group">
                 <select id="fontSelect">
                     <option value="Amiri">Amiri</option>
                     <option value="Aref Ruqaa">Aref Ruqaa</option>
+                    <option value="Cairo">Cairo</option>
                     <option value="Scheherazade New">Scheherazade New</option>
-                    <option value="Al-Kanz for Windows">Al-Kanz</option>
-                    <option value="Kanz al Marjaan">Kanz al Marjaan</option>
                 </select>
                 <input type="color" id="nameColor" value="#8b1e1e">
             </div>
@@ -105,50 +102,41 @@
             </div>
         </div>
 
-        <!-- 3. Ribbon PNG Controls -->
+        <!-- Ribbon Section -->
         <div class="field">
-            <h3>3. Marhala PNG Ribbon</h3>
-            <select id="marhalaPngSelect">
-                <option value="">-- Select Marhala PNG --</option>
-                <option value="marhala1.png">المرحلة الأولى</option>
-                <option value="marhala2.png">المرحلة الثانية</option>
-                <option value="marhala3.png">المرحلة الثالثة</option>
-                <option value="marhala4.png">المرحلة الرابعة</option>
-                <option value="marhala5.png">المرحلة الخامسة</option>
-                <option value="marhala6.png">المرحلة السادسة</option>
-                <option value="marhala7.png">المرحلة السابعة</option>
-                <option value="marhala8.png">المرحلة الثامنة</option>
-            </select>
-
-            <label style="margin-top:8px;">Ribbon PNG (X, Y)</label>
+            <h3>3. Marhala Ribbon Controls</h3>
+            <label>Select or Upload Marhala PNG Image:</label>
+            <input type="file" id="ribbonPngUpload" accept="image/*">
+            
+            <label style="margin-top:8px;">Ribbon PNG Position (X, Y)</label>
             <div class="inline-group">
                 <input type="range" id="ribbonX" min="0" max="1000" value="382">
                 <input type="range" id="ribbonY" min="500" max="1600" value="1120">
             </div>
 
-            <label style="margin-top:8px;">Ribbon PNG (Width, Height)</label>
+            <label style="margin-top:8px;">Ribbon PNG Dimensions (Width, Height)</label>
             <div class="inline-group">
                 <input type="range" id="ribbonW" min="100" max="1000" value="460">
                 <input type="range" id="ribbonH" min="20" max="400" value="110">
             </div>
         </div>
 
-        <!-- 4. Marhala Counts -->
+        <!-- Counts Section -->
         <div class="field">
-            <h3>4. Counts (Bottom Left / Right)</h3>
+            <h3>4. Marhala Counts</h3>
             <div class="inline-group">
                 <div>
-                    <label>Marhala Count</label>
-                    <input type="text" id="marhalaCount" placeholder="Left Count">
+                    <label>Marhala Count (Bottom Left)</label>
+                    <input type="text" id="marhalaCount" placeholder="e.g. 1">
                 </div>
                 <div>
-                    <label>Total Count</label>
-                    <input type="text" id="totalMarhalaCount" placeholder="Right Count">
+                    <label>Total Count (Bottom Right)</label>
+                    <input type="text" id="totalMarhalaCount" placeholder="e.g. 8">
                 </div>
             </div>
         </div>
 
-        <button onclick="download()">Download PNG</button>
+        <button onclick="download()">Download Generated Image</button>
     </div>
 
     <div class="preview-container">
@@ -159,13 +147,10 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         
-        let bgImage = new Image();
+        let bgImage = null;
         let studentImage = null;
         let marhalaOverlayImage = null;
 
-        const staticFont = "Kanz al Marjaan";
-
-        // Collect control elements
         const controls = [
             'stdFullName', 'stdClass', 'fontSelect', 'nameColor',
             'marhalaCount', 'totalMarhalaCount', 'photoZoom', 'photoYOffset',
@@ -176,21 +161,53 @@
         
         controls.forEach(id => {
             const el = document.getElementById(id);
-            if (el) el.addEventListener('input', draw);
-        });
-
-        document.getElementById('marhalaPngSelect').addEventListener('change', (e) => {
-            const src = e.target.value;
-            if (src) {
-                marhalaOverlayImage = new Image();
-                marhalaOverlayImage.crossOrigin = "anonymous";
-                marhalaOverlayImage.onload = draw;
-                marhalaOverlayImage.src = src;
-            } else {
-                marhalaOverlayImage = null;
-                draw();
+            if (el) {
+                el.addEventListener('input', draw);
+                el.addEventListener('change', draw);
             }
         });
+
+        // Background Image Loader
+        document.getElementById('bgUpload').onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (f) => { 
+                    bgImage = new Image(); 
+                    bgImage.onload = draw; 
+                    bgImage.src = f.target.result; 
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Student Photo Loader
+        document.getElementById('studentUpload').onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (f) => { 
+                    studentImage = new Image(); 
+                    studentImage.onload = draw; 
+                    studentImage.src = f.target.result; 
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // Ribbon PNG Loader
+        document.getElementById('ribbonPngUpload').onchange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (f) => { 
+                    marhalaOverlayImage = new Image(); 
+                    marhalaOverlayImage.onload = draw; 
+                    marhalaOverlayImage.src = f.target.result; 
+                };
+                reader.readAsDataURL(file);
+            }
+        };
 
         function drawText(text, x, y, maxWidth, baseSize, font, isBold, color, align='center') {
             if (!text) return;
@@ -198,10 +215,10 @@
             ctx.save();
             ctx.textAlign = align;
             ctx.fillStyle = color;
-            ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
+            ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}", sans-serif`;
             while (maxWidth && ctx.measureText(text).width > maxWidth && size > 12) {
                 size--;
-                ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}"`;
+                ctx.font = `${isBold ? 'bold' : ''} ${size}px "${font}", sans-serif`;
             }
             ctx.fillText(text, x, y);
             ctx.restore();
@@ -211,7 +228,6 @@
             const studentFont = document.getElementById('fontSelect').value;
             const chosenColor = document.getElementById('nameColor').value;
 
-            // Canvas parameters read directly from input controls
             const frameX = parseInt(document.getElementById('photoFrameX').value);
             const frameY = parseInt(document.getElementById('photoFrameY').value);
             const frameRadius = parseInt(document.getElementById('photoFrameRadius').value);
@@ -230,12 +246,28 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             // 1. Draw Template Background
-            if (bgImage.complete && bgImage.src) {
+            if (bgImage && bgImage.complete) {
                 ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+            } else {
+                // Fallback default background card if image isn't loaded yet
+                ctx.fillStyle = "#fdfbf7";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Outer Border Frame
+                ctx.strokeStyle = "#d4af37";
+                ctx.lineWidth = 8;
+                ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+
+                // Photo PlaceHolder Circle Visual Indicator
+                ctx.beginPath();
+                ctx.arc(frameX, frameY, frameRadius, 0, Math.PI * 2);
+                ctx.strokeStyle = "#8b1e1e";
+                ctx.lineWidth = 4;
+                ctx.stroke();
             }
 
             // 2. Student Photo Frame
-            if (studentImage) {
+            if (studentImage && studentImage.complete) {
                 ctx.save();
                 ctx.beginPath(); 
                 ctx.arc(frameX, frameY, frameRadius, 0, Math.PI * 2); 
@@ -255,49 +287,39 @@
                 ctx.restore();
             }
 
-            // 3. Marhala PNG Overlay inside Ribbon
+            // 3. Marhala Ribbon PNG
             if (marhalaOverlayImage && marhalaOverlayImage.complete) {
                 ctx.save();
                 ctx.drawImage(marhalaOverlayImage, rX, rY, rW, rH);
                 ctx.restore();
             }
 
-            // 4. Dynamic Text Render
+            // 4. Text Overlay
             ctx.save();
             ctx.direction = 'rtl';
 
-            // Full Name inside upper box
             const fullName = document.getElementById('stdFullName').value;
             drawText(fullName, nX, nY, 650, 55, studentFont, true, chosenColor, 'center');
 
-            // Class inside upper box below name
             const className = document.getElementById('stdClass').value;
             drawText(className, cX, cY, 650, 42, studentFont, false, chosenColor, 'center');
 
-            // Bottom-Left Marhala Count
             const mCount = document.getElementById('marhalaCount').value;
-            drawText(mCount, 180, 1615, null, 48, staticFont, true, chosenColor, 'center');
+            drawText(mCount, 180, 1615, null, 48, studentFont, true, chosenColor, 'center');
 
-            // Bottom-Right Total Count
             const tCount = document.getElementById('totalMarhalaCount').value;
-            drawText(tCount, 1044, 1615, null, 48, staticFont, true, chosenColor, 'center');
+            drawText(tCount, 1044, 1615, null, 48, studentFont, true, chosenColor, 'center');
 
             ctx.restore();
         }
 
+        // Auto-load template image if hosted/available
         window.onload = () => {
-            bgImage.src = "SBHS_Ikhtebar_Post_4.jpg";
-            bgImage.onload = draw;
-        };
-
-        document.getElementById('studentUpload').onchange = (e) => {
-            const reader = new FileReader();
-            reader.onload = (f) => { 
-                studentImage = new Image(); 
-                studentImage.onload = draw; 
-                studentImage.src = f.target.result; 
-            };
-            if (e.target.files[0]) reader.readAsDataURL(e.target.files[0]);
+            const autoBg = new Image();
+            autoBg.onload = () => { bgImage = autoBg; draw(); };
+            autoBg.onerror = () => { draw(); };
+            autoBg.src = "SBHS_Ikhtebar_Post_4.jpg";
+            draw();
         };
 
         function download() {
